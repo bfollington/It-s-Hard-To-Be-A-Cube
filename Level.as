@@ -1,5 +1,7 @@
 package
 {
+	import flash.display.StageDisplayState;
+	import flash.geom.Rectangle;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	
@@ -97,6 +99,12 @@ package
 			if (Input.pressed(Key.R))
 			{
 				reset();
+			}
+			
+			if (Input.pressed(Key.DIGIT_9))
+			{
+				FP.stage.fullScreenSourceRect = new Rectangle(0, 0, 640, 480);
+				FP.stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			}
 		}
 		

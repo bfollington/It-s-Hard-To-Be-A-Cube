@@ -17,6 +17,7 @@ package entities
 	import volticpunk.entities.VEntity;
 	import volticpunk.entities.util.Delayer;
 	import volticpunk.util.ImageUtil;
+	import volticpunk.util.NumberUtil;
 	
 	public class Player extends VEntity
 	{
@@ -86,38 +87,57 @@ package entities
 			canDash = false;
 			delayer.unpause();
 			
+			var xToMove: Number = 0;
+			var yToMove: Number = 0;
+			
 			var anyKey: Boolean = Input.check("Left") || Input.check("Right") || Input.check("Up") || Input.check("Down");
 			
 			if (Input.check("Left") || (!anyKey && move.velocity.x < 0) || (!anyKey && direction == C.LEFT) )
 			{
-				move.velocity.x = -(dash + 14);
+				xToMove = -(dash + 14);
 				xDashed = true;
 			} else if (Input.check("Right") || (!anyKey && move.velocity.x > 0) || (!anyKey && direction == C.RIGHT) )
 			{
-				move.velocity.x = dash + 14;	
+				xToMove = dash + 14;	
 				xDashed = true;
 			}
 			
 			if (Input.check("Up"))
 			{
-				move.velocity.y = -dash;
+				yToMove = -dash;
 				dashedUpLastFrame = true;
 				yDashed = true;
 			} else if (Input.check("Down"))
 			{
-				move.velocity.y = dash;
+				yToMove = dash;
 				yDashed = true;
 			}
-			
-			if (xDashed && !yDashed)
+
+			while (xToMove != 0 || yToMove != 0)
 			{
-				move.velocity.y = 0;
+				if (xToMove != 0)
+				{
+					if (collideTypes(C.COLLISION_TYPES, x + NumberUtil.sign(xToMove), y))
+					{
+						break;
+					}
+					x += NumberUtil.sign(xToMove);
+					xToMove -= NumberUtil.sign(xToMove);
+				}
+				
+				if (yToMove != 0)
+				{
+					if (collideTypes(C.COLLISION_TYPES, x, y + NumberUtil.sign(yToMove)))
+					{
+						break;
+					}
+					y += NumberUtil.sign(yToMove);
+					yToMove -= NumberUtil.sign(yToMove);
+				}
 			}
-			
-			if (!xDashed && yDashed)
-			{
-				move.velocity.x = 0;
-			}
+
+			move.velocity.y = 0;
+			move.velocity.x = 0;
 			
 			V.getRoom().add( new Smoke(x, y + 8) );
 			V.getRoom().add( new Smoke(x, y + 8) );
