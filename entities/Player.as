@@ -80,7 +80,7 @@ package entities
 		
 		private function dash(): void
 		{
-			var dash: Number = 50;
+			var dash: Number = 64;
 			var xDashed: Boolean = false;
 			var yDashed: Boolean = false;
 			dashedLastFrame = true;
@@ -94,11 +94,11 @@ package entities
 			
 			if (Input.check("Left") || (!anyKey && move.velocity.x < 0) || (!anyKey && direction == C.LEFT) )
 			{
-				xToMove = -(dash + 14);
+				xToMove = -dash;
 				xDashed = true;
 			} else if (Input.check("Right") || (!anyKey && move.velocity.x > 0) || (!anyKey && direction == C.RIGHT) )
 			{
-				xToMove = dash + 14;	
+				xToMove = dash;	
 				xDashed = true;
 			}
 			

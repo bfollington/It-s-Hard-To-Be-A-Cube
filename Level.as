@@ -8,6 +8,7 @@ package
 	import assets.A;
 	
 	import entities.Player;
+	import entities.Timer;
 	
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -148,6 +149,7 @@ package
 			}
 			
 			var e: Entity = add( new Player(128, 64, A.PlayerImage, new Hitbox(16, 16)) );
+			add( new Timer(320 - 140, 0) );
 			
 			cam.follow(e);
 			FP.console.watch(cam.x);
