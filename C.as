@@ -28,7 +28,7 @@ package
 		public static const DEFAULT_COLLISION_TYPE:String = "level";
 		
 		/** Types the player should collide with */
-		public static const COLLISION_TYPES:Array = [DEFAULT_COLLISION_TYPE];
+		public static const COLLISION_TYPES:Array = [DEFAULT_COLLISION_TYPE, "moving_platform"];
 		
 	}
 }
