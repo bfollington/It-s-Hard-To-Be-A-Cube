@@ -55,11 +55,16 @@ package entities
 				"west" : 0
 			};
 			
-			this.speed = speed;
+			this.speed = Math.abs(speed);
 			layer = C.LAYER_BACKGROUND;
 			movement = new Point(horizontal[compassDirection], vertical[compassDirection]);
 			
-			delayer = new Delayer(speed, toggle, false);
+			delayer = new Delayer(this.speed, toggle, false);
+			if (speed < 0)
+			{
+				delayer.forceTime(speed);
+			}
+			
 			addComponent(delayer);
 			
 			addComponent(new Tweener());
