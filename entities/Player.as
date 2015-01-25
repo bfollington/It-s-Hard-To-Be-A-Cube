@@ -20,7 +20,7 @@ package entities
 	public class Player extends VEntity
 	{
 		private var move: PlatformerMovement;
-		private var direction: int;
+		private var direction: int = C.RIGHT;
 		private var canDash: Boolean = true;
 		private var dashedLastFrame: Boolean = false;
 		private var dashedUpLastFrame: Boolean = false;
@@ -83,13 +83,15 @@ package entities
 			canDash = false;
 			delayer.unpause();
 			
-			if (Input.check("Left"))
+			var anyKey: Boolean = Input.check("Left") || Input.check("Right") || Input.check("Up") || Input.check("Down");
+			
+			if (Input.check("Left") || (!anyKey && move.velocity.x < 0) || (!anyKey && direction == C.LEFT) )
 			{
-				move.velocity.x = -dash;
+				move.velocity.x = -(dash + 14);
 				xDashed = true;
-			} else if (Input.check("Right"))
+			} else if (Input.check("Right") || (!anyKey && move.velocity.x > 0) || (!anyKey && direction == C.RIGHT) )
 			{
-				move.velocity.x = dash;	
+				move.velocity.x = dash + 14;	
 				xDashed = true;
 			}
 			

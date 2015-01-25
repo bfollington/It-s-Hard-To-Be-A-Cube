@@ -1,24 +1,24 @@
 <level width="2400" height="240">
   <Entities>
-    <spike id="0" x="288" y="112" speed="2" />
-    <spike id="1" x="400" y="112" speed="2" />
-    <spike id="2" x="512" y="112" speed="2" />
-    <spike id="3" x="624" y="112" speed="2" />
-    <spike id="4" x="784" y="112" speed="2" />
-    <spike id="5" x="816" y="80" speed="2" />
-    <spike id="6" x="912" y="80" speed="2" />
-    <spike id="8" x="944" y="112" speed="2" />
-    <spike id="7" x="848" y="48" speed="2" />
-    <spike id="9" x="880" y="48" speed="2" />
-    <spike id="10" x="1072" y="112" speed="2" />
-    <spike id="11" x="1088" y="112" speed="2" />
-    <spike id="12" x="1264" y="112" speed="2" />
-    <spike id="13" x="1280" y="112" speed="2" />
-    <spike id="14" x="1168" y="112" speed="2" />
-    <spike id="15" x="1184" y="112" speed="2" />
-    <spike id="16" x="1440" y="144" speed="2" />
-    <spike id="17" x="1600" y="80" speed="2" />
-    <spike id="18" x="1760" y="144" speed="2" />
+    <spike id="0" x="288" y="112" speed="2" compass_direction="north" />
+    <spike id="1" x="400" y="112" speed="2" compass_direction="north" />
+    <spike id="2" x="512" y="112" speed="2" compass_direction="north" />
+    <spike id="3" x="624" y="112" speed="2" compass_direction="north" />
+    <spike id="4" x="784" y="112" speed="2" compass_direction="north" />
+    <spike id="5" x="816" y="80" speed="2" compass_direction="north" />
+    <spike id="6" x="912" y="80" speed="2" compass_direction="north" />
+    <spike id="8" x="944" y="112" speed="2" compass_direction="north" />
+    <spike id="7" x="848" y="48" speed="2" compass_direction="north" />
+    <spike id="9" x="880" y="48" speed="2" compass_direction="north" />
+    <spike id="10" x="1072" y="112" speed="2" compass_direction="north" />
+    <spike id="11" x="1088" y="112" speed="2" compass_direction="north" />
+    <spike id="12" x="1264" y="112" speed="2" compass_direction="north" />
+    <spike id="13" x="1280" y="112" speed="2" compass_direction="north" />
+    <spike id="14" x="1168" y="112" speed="2" compass_direction="north" />
+    <spike id="15" x="1184" y="112" speed="2" compass_direction="north" />
+    <spike id="16" x="1440" y="144" speed="2" compass_direction="north" />
+    <spike id="17" x="1600" y="80" speed="2" compass_direction="north" />
+    <spike id="18" x="1760" y="144" speed="2" compass_direction="north" />
   </Entities>
   <Ground tileset="level" exportMode="CSV">-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
 -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1

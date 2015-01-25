@@ -93,6 +93,11 @@ package
 			{
 				V.changeRoom( new Level(levelNumber + 1) );	
 			}
+			
+			if (Input.pressed(Key.R))
+			{
+				reset();
+			}
 		}
 		
 		public function reset(): void
