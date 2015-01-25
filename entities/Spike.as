@@ -36,9 +36,9 @@ package entities
 			
 			var rotations: Object = {
 				"north" : 0,
-				"east" : 90,
+				"east" : 270,
 				"south" : 180,
-				"west" : 270
+				"west" : 90
 			};
 			
 			var horizontal: Object = {
@@ -65,7 +65,7 @@ package entities
 				delayer.forceTime(speed);
 			}
 			
-			addComponent(delayer);
+			if (speed != 0) addComponent(delayer);
 			
 			addComponent(new Tweener());
 			

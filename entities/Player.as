@@ -15,6 +15,7 @@ package entities
 	import volticpunk.components.PlatformerMovement;
 	import volticpunk.components.Tweener;
 	import volticpunk.entities.VEntity;
+	import volticpunk.entities.util.Delayer;
 	import volticpunk.util.ImageUtil;
 	
 	public class Player extends VEntity
@@ -24,7 +25,9 @@ package entities
 		private var canDash: Boolean = true;
 		private var dashedLastFrame: Boolean = false;
 		private var dashedUpLastFrame: Boolean = false;
-		private var delayer: Delayer;
+		private var delayer: volticpunk.components.Delayer;
+		
+		private var dead: Boolean = false;
 		
 		public function Player(x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
 		{
@@ -40,7 +43,7 @@ package entities
 			var tweener: Tweener = addComponent(new Tweener(), "spin_back_tween") as Tweener;
 			tweener.setCallback( resetAngle );
 			
-			delayer = addComponent( new Delayer(0.6, resetDash, false) ) as Delayer;
+			delayer = addComponent( new volticpunk.components.Delayer(0.6, resetDash, false) ) as volticpunk.components.Delayer;
 			delayer.pause();
 			
 			getImage().smooth = false;
@@ -123,12 +126,32 @@ package entities
 		
 		public function kill(): void
 		{
-			(V.getRoom() as Level).reset();
+			if (!dead)
+			{
+				visible = false;
+				move.freezeMovement = true;
+				
+				V.getRoom().add( new Smoke(x, y + 8) );
+				V.getRoom().add( new Smoke(x, y + 8) );
+				V.getRoom().add( new Smoke(x, y + 8) );
+				V.getRoom().add( new Smoke(x, y + 8) );
+				V.getRoom().add( new Smoke(x, y + 8) );
+				
+				V.getRoom().add( new volticpunk.entities.util.Delayer(1, (V.getRoom() as Level).reset) );
+				dead = true;
+			}
 		}
 		
 		override public function update():void
 		{
 			super.update();
+			
+			if (dead) return;
+			
+			if (collideTypes(C.COLLISION_TYPES, x, y))
+			{
+				kill();
+			}
 			
 			if (dashedLastFrame)
 			{
@@ -153,30 +176,39 @@ package entities
 				}
 			}
 			
-			if (Input.check("Left"))
+			// No control above level
+			if (y > 0)
 			{
-				move.velocity.x = -2;	
-				direction = C.LEFT;
-			} else if (Input.check("Right"))
-			{
-				move.velocity.x = 2;	
-				direction = C.RIGHT;
+				if (Input.check("Left"))
+				{
+					move.velocity.x = -2;	
+					direction = C.LEFT;
+				} else if (Input.check("Right"))
+				{
+					move.velocity.x = 2;	
+					direction = C.RIGHT;
+				}
+				
+				if (Input.pressed("Dash") && canDash)
+				{
+					dash();
+				}
+				
+				if (!Input.check("Left") && !Input.check("Right") && !Input.check("Jump"))
+				{
+					var tweener: Tweener = lookup("spin_back_tween") as Tweener;
+					if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 0.1);
+				}
+				
+				if (Input.pressed("Jump") && move.onGround)
+				{
+					move.velocity.y = -4;	
+				}
 			}
 			
-			if (Input.pressed("Dash") && canDash)
+			if (y > room.levelHeight - 16)
 			{
-				dash();
-			}
-			
-			if (!Input.check("Left") && !Input.check("Right") && !Input.check("Jump"))
-			{
-				var tweener: Tweener = lookup("spin_back_tween") as Tweener;
-				if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 0.1);
-			}
-			
-			if (Input.pressed("Jump") && move.onGround)
-			{
-				move.velocity.y = -4;	
+				kill();
 			}
 		}
 	}

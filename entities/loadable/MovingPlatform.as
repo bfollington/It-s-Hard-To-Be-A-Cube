@@ -2,6 +2,8 @@ package entities.loadable
 {
 	import flash.geom.Point;
 	
+	import assets.A;
+	
 	import entities.Player;
 	import entities.Spike;
 	
@@ -16,39 +18,45 @@ package entities.loadable
 	
 	public class MovingPlatform extends VEntity
 	{
-		private var speed: Number = 70;
+		private var speed: Number = 64;
 		private var target: Point;
 		private var targetIndex: int = 0;
 		private var nodes: Vector.<Point>;
 		private var active: Boolean;
 		private var needsPlayer: Boolean;
 		private var lastPos: Point;
+		private var repeat: Boolean;
 		
 		public static function create(n: XML, world: World): void
 		{
 			var nodeList:Vector.<Point> = new Vector.<Point>();
+			
+			nodeList.push(new Point(n.@x, n.@y));
 			
 			for each (var t:XML in n.node)
 			{
 				nodeList.push(new Point(t.@x, t.@y));
 			}
 			
-			var platform: MovingPlatform = new MovingPlatform(n.@x, n.@y, nodeList, n.@active == "True", n.@needsPlayerToMove == "True");
+			var platform: MovingPlatform = new MovingPlatform(n.@x, n.@y, nodeList, n.@active == "True", n.@needsPlayerToMove == "True", n.@speed);
 			world.add(platform);
 		}
 		
-		public function MovingPlatform(x:Number, y:Number, nodes: Vector.<Point>, active: Boolean = false, needsPlayer: Boolean = true)
+		public function MovingPlatform(x:Number, y:Number, nodes: Vector.<Point>, active: Boolean = false, needsPlayer: Boolean = true, speed: Number = 64, repeat: Boolean = false)
 		{
-			super(x, y, Image.createRect(32, 16), new Hitbox(32, 16));
+			super(x, y, A.MovingPlatformImage, new Hitbox(32, 16));
 			
 			this.nodes = nodes;
 			target = nodes[targetIndex];
 			
 			this.active = active;
 			this.needsPlayer = needsPlayer;
+			this.repeat = repeat;
+			this.speed = speed;
 			addComponent( new Tweener() );
 			getTweener().setCallback(moveToNode);
 			moveToNode();
+			if (!active) getTweener().pause();
 			lastPos = new Point(x, y);
 			
 			type = "moving_platform";
@@ -70,8 +78,15 @@ package entities.loadable
 			
 			if (player)
 			{
-				player.x = x + (player.x - lastPos.x);
-				player.y = y - player.height; 
+				var newX: Number = x + (player.x - lastPos.x);
+				var newY: Number = y + (player.y - lastPos.y); 
+				
+				if (!player.collideTypes(C.COLLISION_TYPES, newX, newY))
+				{
+					player.x = newX;
+					player.y = newY;
+				}
+				
 				
 				active = true;
 			} else {
@@ -91,7 +106,13 @@ package entities.loadable
 			
 			if (targetIndex >= nodes.length)
 			{
-				targetIndex = 0;
+				if (repeat)
+				{
+					targetIndex = 0;	
+				} else {
+					return;
+				}
+				
 			}
 			
 			target = nodes[targetIndex];

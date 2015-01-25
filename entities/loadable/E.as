@@ -5,6 +5,7 @@ public class E
 public function E()
 {
 MovingPlatform;
+RoofFaller;
 }
 }
 }

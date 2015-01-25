@@ -1,9 +1,13 @@
 package
 {	
+	import entities.Player;
+	
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
+	
+	import volticpunk.V;
 	
 	[SWF(width="640", height="480", backgroundColor="#000000"]
 	
@@ -26,6 +30,11 @@ package
 			
 			FP.console.enable();
 			FP.console.toggleKey = Key.TAB;
+		}
+		
+		public static function getPlayer(): Player
+		{
+			return V.getRoom().getMembersByClass(Player).getMembers()[0];
 		}
 	}
 }

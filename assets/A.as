@@ -17,6 +17,11 @@ public static const CollisionTilesImage:Image = new Image(CollisionTiles);
 public static const LevelTilesImage:Image = new Image(LevelTiles);
 
 
+// IMAGE: MovingPlatform embedding from moving_platform.png
+[Embed(source = 'moving_platform.png')] public static const MovingPlatform:Class;
+public static const MovingPlatformImage:Image = new Image(MovingPlatform);
+
+
 // IMAGE: Player embedding from player.png
 [Embed(source = 'player.png')] public static const Player:Class;
 public static const PlayerImage:Image = new Image(Player);
@@ -43,13 +48,17 @@ public static const SpikeImage:Image = new Image(Spike);
 [Embed(source = 'levels/D.oel', mimeType = 'application/octet-stream')] public static const DMap:Class;
 
 
+// LEVEL: E embedding from levels/E.oel
+[Embed(source = 'levels/E.oel', mimeType = 'application/octet-stream')] public static const EMap:Class;
+
+
 // SOUND: Footstep1 embedding from sounds/footstep1.mp3
 [Embed(source = 'sounds/footstep1.mp3')] public static const Footstep1:Class;
 public static const Footstep1Sound:Sfx = new Sfx(Footstep1);
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[AMap,BMap,CMap,DMap];
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,BMap,CMap,DMap,EMap];
 
 
 // VECTOR: 
@@ -57,7 +66,8 @@ public static const SoundsList:Vector.<Class> = new <Class>[Footstep1];
 public static const LEVELS:Object = {"A" : AMap,
 "B" : BMap,
 "C" : CMap,
-"D" : DMap};
+"D" : DMap,
+"E" : EMap};
 public static const SOUNDS:Object = {"Footstep1" : Footstep1Sound};
 public static const TILES:Object = {"CollisionTiles" : CollisionTiles,
 "LevelTiles" : LevelTiles};}
