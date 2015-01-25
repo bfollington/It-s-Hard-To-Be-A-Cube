@@ -17,8 +17,30 @@ public static const CollisionTilesImage:Image = new Image(CollisionTiles);
 public static const LevelTilesImage:Image = new Image(LevelTiles);
 
 
-// LEVEL: Test embedding from levels/test.oel
-[Embed(source = 'levels/test.oel', mimeType = 'application/octet-stream')] public static const TestMap:Class;
+// IMAGE: Player embedding from player.png
+[Embed(source = 'player.png')] public static const Player:Class;
+public static const PlayerImage:Image = new Image(Player);
+
+
+// IMAGE: Spike embedding from spike.png
+[Embed(source = 'spike.png')] public static const Spike:Class;
+public static const SpikeImage:Image = new Image(Spike);
+
+
+// LEVEL: A embedding from levels/A.oel
+[Embed(source = 'levels/A.oel', mimeType = 'application/octet-stream')] public static const AMap:Class;
+
+
+// LEVEL: B embedding from levels/B.oel
+[Embed(source = 'levels/B.oel', mimeType = 'application/octet-stream')] public static const BMap:Class;
+
+
+// LEVEL: C embedding from levels/C.oel
+[Embed(source = 'levels/C.oel', mimeType = 'application/octet-stream')] public static const CMap:Class;
+
+
+// LEVEL: D embedding from levels/D.oel
+[Embed(source = 'levels/D.oel', mimeType = 'application/octet-stream')] public static const DMap:Class;
 
 
 // SOUND: Footstep1 embedding from sounds/footstep1.mp3
@@ -27,12 +49,15 @@ public static const Footstep1Sound:Sfx = new Sfx(Footstep1);
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[TestMap];
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,BMap,CMap,DMap];
 
 
 // VECTOR: 
 public static const SoundsList:Vector.<Class> = new <Class>[Footstep1];
-public static const LEVELS:Object = {"Test" : TestMap};
+public static const LEVELS:Object = {"A" : AMap,
+"B" : BMap,
+"C" : CMap,
+"D" : DMap};
 public static const SOUNDS:Object = {"Footstep1" : Footstep1Sound};
 public static const TILES:Object = {"CollisionTiles" : CollisionTiles,
 "LevelTiles" : LevelTiles};}

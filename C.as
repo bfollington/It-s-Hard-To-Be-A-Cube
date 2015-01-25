@@ -9,6 +9,9 @@ package
 		public static const GRID: int = 16;
 		public static const TILE_SIZE:int = 16;
 		
+		public static const LEFT:int = -1;
+		public static const RIGHT:int = 1;
+		
         public static const LAYER_BACKGROUND:int = 15;
         public static const LAYER_GROUND:int = 0;
         public static const LAYER_LIGHT:int = -2;

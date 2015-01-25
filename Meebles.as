@@ -19,7 +19,10 @@ package
 			
 			Input.define("Left", Key.LEFT);
 			Input.define("Right", Key.RIGHT);
-			Input.define("Jump", Key.UP);
+			Input.define("Up", Key.UP);
+			Input.define("Down", Key.DOWN);
+			Input.define("Jump", Key.Z);
+			Input.define("Dash", Key.X);
 			
 			FP.console.enable();
 			FP.console.toggleKey = Key.TAB;
