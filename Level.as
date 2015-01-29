@@ -107,6 +107,12 @@ package
 				FP.stage.fullScreenSourceRect = new Rectangle(0, 0, 640, 480);
 				FP.stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			}
+
+			if (Input.mouseDown)
+			{
+				Meebles.getPlayer().x = FP.camera.x + Input.mouseX;
+				Meebles.getPlayer().y = FP.camera.y + Input.mouseY;
+			}
 		}
 		
 		public function reset(): void

@@ -52,13 +52,21 @@ public static const SpikeImage:Image = new Image(Spike);
 [Embed(source = 'levels/E.oel', mimeType = 'application/octet-stream')] public static const EMap:Class;
 
 
+// LEVEL: F embedding from levels/F.oel
+[Embed(source = 'levels/F.oel', mimeType = 'application/octet-stream')] public static const FMap:Class;
+
+
+// LEVEL: G embedding from levels/G.oel
+[Embed(source = 'levels/G.oel', mimeType = 'application/octet-stream')] public static const GMap:Class;
+
+
 // SOUND: Footstep1 embedding from sounds/footstep1.mp3
 [Embed(source = 'sounds/footstep1.mp3')] public static const Footstep1:Class;
 public static const Footstep1Sound:Sfx = new Sfx(Footstep1);
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[AMap,BMap,CMap,DMap,EMap];
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,BMap,CMap,DMap,EMap,FMap,GMap];
 
 
 // VECTOR: 
@@ -67,7 +75,9 @@ public static const LEVELS:Object = {"A" : AMap,
 "B" : BMap,
 "C" : CMap,
 "D" : DMap,
-"E" : EMap};
+"E" : EMap,
+"F" : FMap,
+"G" : GMap};
 public static const SOUNDS:Object = {"Footstep1" : Footstep1Sound};
 public static const TILES:Object = {"CollisionTiles" : CollisionTiles,
 "LevelTiles" : LevelTiles};}
