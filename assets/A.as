@@ -12,6 +12,11 @@ public class A
 public static const CollisionTilesImage:Image = new Image(CollisionTiles);
 
 
+// IMAGE: FallingPlatform embedding from falling_platform.png
+[Embed(source = 'falling_platform.png')] public static const FallingPlatform:Class;
+public static const FallingPlatformImage:Image = new Image(FallingPlatform);
+
+
 // IMAGE: LevelTiles embedding from level_tiles.png
 [Embed(source = 'level_tiles.png')] public static const LevelTiles:Class;
 public static const LevelTilesImage:Image = new Image(LevelTiles);
@@ -88,17 +93,36 @@ public static const SpikeImage:Image = new Image(Spike);
 [Embed(source = 'levels/G2.oel', mimeType = 'application/octet-stream')] public static const G2Map:Class;
 
 
-// SOUND: Footstep1 embedding from sounds/footstep1.mp3
-[Embed(source = 'sounds/footstep1.mp3')] public static const Footstep1:Class;
-public static const Footstep1Sound:Sfx = new Sfx(Footstep1);
+// LEVEL: H embedding from levels/H.oel
+[Embed(source = 'levels/H.oel', mimeType = 'application/octet-stream')] public static const HMap:Class;
+
+
+// SOUND: DASH embedding from sounds/DASH.mp3
+[Embed(source = 'sounds/DASH.mp3')] public static const DASH:Class;
+public static const DASHSound:Sfx = new Sfx(DASH);
+
+
+// SOUND: DIE embedding from sounds/DIE.mp3
+[Embed(source = 'sounds/DIE.mp3')] public static const DIE:Class;
+public static const DIESound:Sfx = new Sfx(DIE);
+
+
+// SOUND: JUMP embedding from sounds/JUMP.mp3
+[Embed(source = 'sounds/JUMP.mp3')] public static const JUMP:Class;
+public static const JUMPSound:Sfx = new Sfx(JUMP);
+
+
+// SOUND: LAND embedding from sounds/LAND.mp3
+[Embed(source = 'sounds/LAND.mp3')] public static const LAND:Class;
+public static const LANDSound:Sfx = new Sfx(LAND);
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map];
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap];
 
 
 // VECTOR: 
-public static const SoundsList:Vector.<Class> = new <Class>[Footstep1];
+public static const SoundsList:Vector.<Class> = new <Class>[DASH,DIE,JUMP,LAND];
 public static const LEVELS:Object = {"A" : AMap,
 "A2" : A2Map,
 "B" : BMap,
@@ -112,8 +136,12 @@ public static const LEVELS:Object = {"A" : AMap,
 "F" : FMap,
 "F2" : F2Map,
 "G" : GMap,
-"G2" : G2Map};
-public static const SOUNDS:Object = {"Footstep1" : Footstep1Sound};
+"G2" : G2Map,
+"H" : HMap};
+public static const SOUNDS:Object = {"DASH" : DASHSound,
+"DIE" : DIESound,
+"JUMP" : JUMPSound,
+"LAND" : LANDSound};
 public static const TILES:Object = {"CollisionTiles" : CollisionTiles,
 "LevelTiles" : LevelTiles};}
 }

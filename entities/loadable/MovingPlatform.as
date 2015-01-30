@@ -13,6 +13,7 @@ package entities.loadable
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.masks.Hitbox;
 	
+	import volticpunk.components.Animator;
 	import volticpunk.components.Tweener;
 	import volticpunk.entities.VEntity;
 	
@@ -48,6 +49,40 @@ package entities.loadable
 			
 			this.nodes = nodes;
 			target = nodes[targetIndex];
+			
+			var animator: Animator = addComponent( new Animator(A.MovingPlatform, 32, 16) ) as Animator;
+			animator.add("up", [0]);
+			animator.add("down", [1]);
+			animator.add("up_auto", [2]);
+			animator.add("down_auto", [3]);
+			animator.add("left", [4]);
+			animator.add("right", [5]);
+			animator.add("left_auto", [6]);
+			animator.add("right_auto", [7]);
+			
+			var name: String;
+			
+			// Horizontal
+			if (nodes[0].y == nodes[1].y)
+			{
+				// Right
+				if (nodes[0].x < nodes[1].x)
+				{
+					name = "right" + (!needsPlayer ? "_auto" : "");
+				} else { // Left
+					name = "left" + (!needsPlayer ? "_auto" : "");
+				}
+			} else { //Vertical
+				// Down
+				if (nodes[0].y < nodes[1].y)
+				{
+					name = "down" + (!needsPlayer ? "_auto" : "");
+				} else { // Up
+					name = "up" + (!needsPlayer ? "_auto" : "");
+				}
+			}
+			
+			animator.play(name);
 			
 			this.active = active;
 			this.needsPlayer = needsPlayer;

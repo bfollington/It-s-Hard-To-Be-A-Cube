@@ -88,7 +88,7 @@ package entities
 			
 			var player: Player = collide("player", x, y) as Player;
 			
-			if (player)
+			if (player && !player.isDashing())
 			{
 				player.kill();
 			}

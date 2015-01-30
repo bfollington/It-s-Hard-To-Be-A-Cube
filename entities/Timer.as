@@ -31,10 +31,12 @@ package entities
 			timer += FP.elapsed;
 			
 			var mins: int = Math.floor(timer / 60);
-			var secs: int = Math.floor(timer);
+			var secs: int = Math.floor(timer % 60);
 			var millis: int = Math.floor(timer % 1 * 1000);
 			
 			text.text = pad(mins, 2) + ":" + pad(secs, 2) + ":" + pad(millis, 3);
+			
+			text.text = (timer.toFixed(2));
 		}
 		
 		private function pad(n: Number, length: int): String

@@ -9,7 +9,7 @@
     <spike id="37" x="208" y="144" speed="-2" compass_direction="north" />
     <spike id="38" x="320" y="144" speed="2" compass_direction="north" />
     <spike id="39" x="336" y="144" speed="2" compass_direction="north" />
-    <MovingPlatform id="18" x="544" y="144" active="False" needsPlayerToMove="True" speed="64">
+    <MovingPlatform id="18" x="544" y="144" active="False" needsPlayerToMove="False" speed="32">
       <node x="1168" y="144" />
     </MovingPlatform>
     <spike id="40" x="704" y="128" speed="0" compass_direction="south" />

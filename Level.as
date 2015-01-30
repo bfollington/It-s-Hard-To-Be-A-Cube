@@ -7,6 +7,7 @@ package
 	
 	import assets.A;
 	
+	import entities.EdgeOfScreen;
 	import entities.Player;
 	import entities.Timer;
 	
@@ -94,7 +95,7 @@ package
 			
 			if (Input.pressed(Key.SHIFT))
 			{
-				V.changeRoom( new Level(levelNumber + 1) );	
+				nextLevel();
 			}
 			
 			if (Input.pressed(Key.R))
@@ -113,6 +114,11 @@ package
 				Meebles.getPlayer().x = FP.camera.x + Input.mouseX;
 				Meebles.getPlayer().y = FP.camera.y + Input.mouseY;
 			}
+		}
+		
+		public function nextLevel(): void
+		{
+			V.changeRoom( new Level(levelNumber + 1) );	
 		}
 		
 		public function reset(): void
@@ -145,6 +151,10 @@ package
 			
 			add( new CollisionLayer(map, A.CollisionTiles, map.Collision) );
 			add( new TileLayer(map, getTileset(map.Ground.@tileset), map.Ground, C.LAYER_GROUND) );
+			var e: Entity = add( new Entity(-1, 0, null, new Hitbox(1, 240)));
+			e.type = C.DEFAULT_COLLISION_TYPE;
+			
+			add( new EdgeOfScreen() );
 			
 			var lookupDictionary: LookupDictionary = new MeeblesLookupDictionary();
 			var madePlayer: Boolean = false;

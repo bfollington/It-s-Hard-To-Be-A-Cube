@@ -40,10 +40,12 @@ package entities
 		
 		private var dead: Boolean = false;
 		private var jumping: Boolean = false;
+		private var easyJump: Number = 0;
+		private var hasPressedJump: Boolean = false;
 		
 		public function Player(x:Number=0, y:Number=0)
 		{
-			super(x, y, A.PlayerImage, new Hitbox(14, 14, 1, 2) );
+			super(x, y, A.PlayerImage, new Hitbox(16, 14, 0, 2) );
 			
 			ImageUtil.setPivotPoint(getImage(), new Point( getImage().width / 2, getImage().height / 2) );
 			
@@ -91,6 +93,7 @@ package entities
 				V.getRoom().add( new Smoke(x, y + 8) );
 			}
 			
+			A.LANDSound.play();
 			
 			if (!getTweener().isActive()) getTweener().tween(getImage(), {scaleY: 1, y: getImage().y - 4}, 0.3, Ease.bounceOut);
 		}
@@ -109,16 +112,6 @@ package entities
 			
 			var anyKey: Boolean = Input.check("Left") || Input.check("Right") || Input.check("Up") || Input.check("Down");
 			
-			if (Input.check("Left") || (!anyKey && move.velocity.x < 0) || (!anyKey && direction == C.LEFT) )
-			{
-				xToMove = -DASH;
-				xDashed = true;
-			} else if (Input.check("Right") || (!anyKey && move.velocity.x > 0) || (!anyKey && direction == C.RIGHT) )
-			{
-				xToMove = DASH;	
-				xDashed = true;
-			}
-			
 			if (Input.check("Up"))
 			{
 				yToMove = -DASH;
@@ -128,13 +121,22 @@ package entities
 			{
 				yToMove = DASH;
 				yDashed = true;
-			}
+			} else if (Input.check("Left") || (!anyKey && move.velocity.x < 0) || (!anyKey && direction == C.LEFT) )
+			{
+				xToMove = -DASH;
+				xDashed = true;
+			} else if (Input.check("Right") || (!anyKey && move.velocity.x > 0) || (!anyKey && direction == C.RIGHT) )
+			{
+				xToMove = DASH;	
+				xDashed = true;
+			} 
 			
 			jumping = true;
 			move.onGround = false;
 			V.getRoom().add( new Smoke(x, y + 8) );
 			V.getRoom().add( new Smoke(x, y + 8) );
 			V.getRoom().add( new Smoke(x, y + 8) );
+			A.DASHSound.play();
 		}
 		
 		public function kill(): void
@@ -152,6 +154,7 @@ package entities
 				
 				V.getRoom().add( new volticpunk.entities.util.Delayer(1, (V.getRoom() as Level).reset) );
 				dead = true;
+				A.DIESound.play();
 			}
 		}
 		
@@ -198,9 +201,14 @@ package entities
 			}
 		}
 		
-		private function isDashing(): Boolean
+		public function isDashing(): Boolean
 		{
 			return (xToMove != 0 || yToMove != 0);
+		}
+		
+		public function isDead(): Boolean
+		{
+			return dead;
 		}
 		
 		override public function update():void
@@ -233,7 +241,7 @@ package entities
 					dashedUpLastFrame = false;
 				}
 				
-				move.resetFallDistance();
+				// move.resetFallDistance();
 			}
 			
 			getImage().angle -= move.velocity.x * 9;
@@ -268,18 +276,36 @@ package entities
 				if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 0.1);
 			}
 			
-			if (Input.pressed("Jump"))
+			if (Input.check("Jump"))
 			{	
-				if (!collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 3) || ( !jumping && move.getFallDistance() < 5 && move.getFallDistance() > 0 ) ))
+				
+				if (!hasPressedJump && !collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 5) || ( !jumping && easyJump > 0 ) ))
 				{
 					move.velocity.y = -4;	
+					A.JUMPSound.play();
 					jumping = true;
 				}
+				
+				hasPressedJump = true;
+			} else {
+				hasPressedJump = false;
+			}
+			
+			if (move.onGround)
+			{
+				easyJump = 0.08;
+			} else {
+				easyJump -= FP.elapsed;
 			}
 			
 			if (y > room.levelHeight - 16)
 			{
 				kill();
+			}
+			
+			if (x > room.levelWidth)
+			{
+				(room as Level).nextLevel();
 			}
 		}
 	}
