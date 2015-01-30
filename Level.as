@@ -147,18 +147,25 @@ package
 			add( new TileLayer(map, getTileset(map.Ground.@tileset), map.Ground, C.LAYER_GROUND) );
 			
 			var lookupDictionary: LookupDictionary = new MeeblesLookupDictionary();
+			var madePlayer: Boolean = false;
 			
 			//Load Entities
 			for each (var n:XML in map.Entities.*) 
 			{
 				lookupDictionary.create(n, this);
+				if (n.name() == "PlayerStart")
+				{
+					madePlayer = true;
+				}
 			}
 			
-			var e: Entity = add( new Player(128, 64, A.PlayerImage, new Hitbox(16, 16)) );
-			add( new Timer(320 - 140, 0) );
+			if (!madePlayer)
+			{
+				var e: Entity = add( new Player(128, 64) );
+				V.getRoom().cam.follow(e);
+			}
 			
-			cam.follow(e);
-			FP.console.watch(cam.x);
+			add( new Timer(320 - 140, 0) );
 		}
 	}
 }

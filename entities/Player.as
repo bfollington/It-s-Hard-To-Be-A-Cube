@@ -2,11 +2,14 @@ package entities
 {
 	import flash.geom.Point;
 	
+	import assets.A;
+	
 	import entities.particles.Smoke;
 	
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.Mask;
+	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.utils.Ease;
 	import net.flashpunk.utils.Input;
 	
@@ -29,14 +32,15 @@ package entities
 		private var delayer: volticpunk.components.Delayer;
 		
 		private var dead: Boolean = false;
+		private var jumping: Boolean = false;
 		
-		public function Player(x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
+		public function Player(x:Number=0, y:Number=0)
 		{
-			super(x, y, graphic, mask);
+			super(x, y, A.PlayerImage, new Hitbox(14, 14, 1, 2) );
 			
 			ImageUtil.setPivotPoint(getImage(), new Point( getImage().width / 2, getImage().height / 2) );
 			
-			move = new PlatformerMovement();
+			move = new PlatformerMovement(null, null, new Point(2, 5));
 			move.setLandingCallback(landed);
 			
 			addComponent(move, "move");
@@ -65,9 +69,10 @@ package entities
 		
 		private function landed(): void
 		{
-			getImage().scaleY = 1.0 - (move.velocity.y / 10.0) ;
+			getImage().scaleY = 1.0 - Math.abs(move.velocity.y / 10.0) ;
 			getImage().angle = 0;
 			getImage().y += 4;
+			jumping = false;
 			
 			for (var i: int = 0; i < 5; i ++)
 			{
@@ -196,34 +201,33 @@ package entities
 				}
 			}
 			
-			// No control above level
-			if (y > 0)
+			if (Input.check("Left"))
 			{
-				if (Input.check("Left"))
-				{
-					move.velocity.x = -2;	
-					direction = C.LEFT;
-				} else if (Input.check("Right"))
-				{
-					move.velocity.x = 2;	
-					direction = C.RIGHT;
-				}
-				
-				if (Input.pressed("Dash") && canDash)
-				{
-					dash();
-				}
-				
-				if (!Input.check("Left") && !Input.check("Right") && !Input.check("Jump"))
-				{
-					var tweener: Tweener = lookup("spin_back_tween") as Tweener;
-					if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 0.1);
-				}
-				
-				if (Input.pressed("Jump") && move.onGround)
-				{
-					move.velocity.y = -4;	
-				}
+				move.acceleration.x = -0.5;	
+				direction = C.LEFT;
+			} else if (Input.check("Right"))
+			{
+				move.acceleration.x = 0.5;	
+				direction = C.RIGHT;
+			} else {
+				move.acceleration.x = 0;
+			}
+			
+			if (Input.pressed("Dash") && canDash)
+			{
+				dash();
+			}
+			
+			if (!Input.check("Left") && !Input.check("Right") && !Input.check("Jump"))
+			{
+				var tweener: Tweener = lookup("spin_back_tween") as Tweener;
+				if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 0.1);
+			}
+			
+			if (Input.pressed("Jump") && !collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 3) || ( !jumping && move.getFallDistance() < 5 && move.getFallDistance() > 0 ) ))
+			{
+				move.velocity.y = -4;	
+				jumping = true;
 			}
 			
 			if (y > room.levelHeight - 16)

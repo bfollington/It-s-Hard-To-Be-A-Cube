@@ -5,15 +5,15 @@
   <BackgroundColor A="255" R="125" G="160" B="255" />
   <GridColor A="255" R="255" G="240" B="90" />
   <LevelDefaultSize>
-    <Width>2400</Width>
+    <Width>1200</Width>
     <Height>240</Height>
   </LevelDefaultSize>
   <LevelMinimumSize>
-    <Width>1600</Width>
+    <Width>1200</Width>
     <Height>240</Height>
   </LevelMinimumSize>
   <LevelMaximumSize>
-    <Width>3200</Width>
+    <Width>2400</Width>
     <Height>240</Height>
   </LevelMaximumSize>
   <Filename>\\psf\Dropbox\MeeblesAgain\src\assets\levels\meebles.oep</Filename>
@@ -138,6 +138,21 @@
       </Origin>
       <ImageDefinition DrawMode="Rectangle" ImagePath="" Tiled="false">
         <RectColor A="255" R="0" G="0" B="255" />
+      </ImageDefinition>
+      <ValueDefinitions />
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="PlayerStart" Limit="1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Rectangle" ImagePath="" Tiled="false">
+        <RectColor A="255" R="255" G="0" B="255" />
       </ImageDefinition>
       <ValueDefinitions />
       <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
