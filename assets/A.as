@@ -97,6 +97,10 @@ public static const SpikeImage:Image = new Image(Spike);
 [Embed(source = 'levels/H.oel', mimeType = 'application/octet-stream')] public static const HMap:Class;
 
 
+// LEVEL: H2 embedding from levels/H2.oel
+[Embed(source = 'levels/H2.oel', mimeType = 'application/octet-stream')] public static const H2Map:Class;
+
+
 // SOUND: DASH embedding from sounds/DASH.mp3
 [Embed(source = 'sounds/DASH.mp3')] public static const DASH:Class;
 public static const DASHSound:Sfx = new Sfx(DASH);
@@ -118,7 +122,7 @@ public static const LANDSound:Sfx = new Sfx(LAND);
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap];
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap,H2Map];
 
 
 // VECTOR: 
@@ -137,7 +141,8 @@ public static const LEVELS:Object = {"A" : AMap,
 "F2" : F2Map,
 "G" : GMap,
 "G2" : G2Map,
-"H" : HMap};
+"H" : HMap,
+"H2" : H2Map};
 public static const SOUNDS:Object = {"DASH" : DASHSound,
 "DIE" : DIESound,
 "JUMP" : JUMPSound,
