@@ -7,6 +7,7 @@ package entities
 	import entities.particles.Smoke;
 	
 	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.Mask;
 	import net.flashpunk.masks.Hitbox;
@@ -30,6 +31,12 @@ package entities
 		private var dashedLastFrame: Boolean = false;
 		private var dashedUpLastFrame: Boolean = false;
 		private var delayer: volticpunk.components.Delayer;
+		
+		private const DASH: Number = 64;
+		private var xDashed: Boolean = false;
+		private var yDashed: Boolean = false;
+		private var xToMove: Number = 0;
+		private var yToMove: Number = 0;
 		
 		private var dead: Boolean = false;
 		private var jumping: Boolean = false;
@@ -67,9 +74,14 @@ package entities
 			getImage().angle = 0;
 		}
 		
+		override public function added():void
+		{
+			super.added();
+		}
+		
 		private function landed(): void
 		{
-			getImage().scaleY = 1.0 - Math.abs(move.velocity.y / 10.0) ;
+			getImage().scaleY = 0.6;
 			getImage().angle = 0;
 			getImage().y += 4;
 			jumping = false;
@@ -85,65 +97,41 @@ package entities
 		
 		private function dash(): void
 		{
-			var dash: Number = 64;
-			var xDashed: Boolean = false;
-			var yDashed: Boolean = false;
 			dashedLastFrame = true;
 			canDash = false;
 			delayer.unpause();
 			
-			var xToMove: Number = 0;
-			var yToMove: Number = 0;
+			xDashed = false;
+			yDashed = false;
+			xToMove = 0;
+			yToMove = 0;
+			
 			
 			var anyKey: Boolean = Input.check("Left") || Input.check("Right") || Input.check("Up") || Input.check("Down");
 			
 			if (Input.check("Left") || (!anyKey && move.velocity.x < 0) || (!anyKey && direction == C.LEFT) )
 			{
-				xToMove = -dash;
+				xToMove = -DASH;
 				xDashed = true;
 			} else if (Input.check("Right") || (!anyKey && move.velocity.x > 0) || (!anyKey && direction == C.RIGHT) )
 			{
-				xToMove = dash;	
+				xToMove = DASH;	
 				xDashed = true;
 			}
 			
 			if (Input.check("Up"))
 			{
-				yToMove = -dash;
+				yToMove = -DASH;
 				dashedUpLastFrame = true;
 				yDashed = true;
 			} else if (Input.check("Down"))
 			{
-				yToMove = dash;
+				yToMove = DASH;
 				yDashed = true;
 			}
-
-			while (xToMove != 0 || yToMove != 0)
-			{
-				if (xToMove != 0)
-				{
-					if (collideTypes(C.COLLISION_TYPES, x + NumberUtil.sign(xToMove), y))
-					{
-						break;
-					}
-					x += NumberUtil.sign(xToMove);
-					xToMove -= NumberUtil.sign(xToMove);
-				}
-				
-				if (yToMove != 0)
-				{
-					if (collideTypes(C.COLLISION_TYPES, x, y + NumberUtil.sign(yToMove)))
-					{
-						break;
-					}
-					y += NumberUtil.sign(yToMove);
-					yToMove -= NumberUtil.sign(yToMove);
-				}
-			}
-
-			move.velocity.y = 0;
-			move.velocity.x = 0;
 			
+			jumping = true;
+			move.onGround = false;
 			V.getRoom().add( new Smoke(x, y + 8) );
 			V.getRoom().add( new Smoke(x, y + 8) );
 			V.getRoom().add( new Smoke(x, y + 8) );
@@ -167,6 +155,54 @@ package entities
 			}
 		}
 		
+		private function dashing(): void
+		{
+			dashedLastFrame = true;
+			move.velocity.y = 0;
+			move.velocity.x = 0;
+			
+			for (var i: int = 0; i < 8; i++)
+			{
+				if (xToMove != 0)
+				{
+					if (collideTypes(C.COLLISION_TYPES, x + NumberUtil.sign(xToMove), y))
+					{
+						xToMove = 0;
+						break;	
+					}
+					x += NumberUtil.sign(xToMove);
+					xToMove -= NumberUtil.sign(xToMove);
+				}
+				
+				if (yToMove != 0)
+				{
+					if (collideTypes(C.COLLISION_TYPES, x, y + NumberUtil.sign(yToMove)))
+					{
+						if (yToMove > 0)
+						{
+							move.onGround = true;
+						}
+						
+						yToMove = 0;
+						break;
+					}
+					
+					if (NumberUtil.sign(yToMove) < 0)
+					{
+						dashedUpLastFrame = true;
+					}
+					
+					y += NumberUtil.sign(yToMove);
+					yToMove -= NumberUtil.sign(yToMove);
+				}
+			}
+		}
+		
+		private function isDashing(): Boolean
+		{
+			return (xToMove != 0 || yToMove != 0);
+		}
+		
 		override public function update():void
 		{
 			super.update();
@@ -178,9 +214,15 @@ package entities
 				kill();
 			}
 			
-			if (dashedLastFrame)
+			if (isDashing())
+			{
+				dashing();
+			}
+			
+			if (!isDashing() && dashedLastFrame)
 			{
 				dashedLastFrame = false;
+				jumping = false;
 				move.velocity.x = 0;
 				
 				if (!dashedUpLastFrame)
@@ -190,6 +232,8 @@ package entities
 					move.velocity.y = -2;
 					dashedUpLastFrame = false;
 				}
+				
+				move.resetFallDistance();
 			}
 			
 			getImage().angle -= move.velocity.x * 9;
@@ -213,7 +257,7 @@ package entities
 				move.acceleration.x = 0;
 			}
 			
-			if (Input.pressed("Dash") && canDash)
+			if (Input.pressed("Dash") && canDash && !isDashing())
 			{
 				dash();
 			}
@@ -224,10 +268,13 @@ package entities
 				if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 0.1);
 			}
 			
-			if (Input.pressed("Jump") && !collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 3) || ( !jumping && move.getFallDistance() < 5 && move.getFallDistance() > 0 ) ))
-			{
-				move.velocity.y = -4;	
-				jumping = true;
+			if (Input.pressed("Jump"))
+			{	
+				if (!collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 3) || ( !jumping && move.getFallDistance() < 5 && move.getFallDistance() > 0 ) ))
+				{
+					move.velocity.y = -4;	
+					jumping = true;
+				}
 			}
 			
 			if (y > room.levelHeight - 16)
