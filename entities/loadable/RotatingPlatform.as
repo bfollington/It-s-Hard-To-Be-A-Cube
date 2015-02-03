@@ -1,14 +1,112 @@
 package entities.loadable
 {
+	import flash.display.BitmapData;
+	import flash.geom.Matrix;
+	import flash.geom.Point;
+	
+	import assets.A;
+	
+	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
-	import net.flashpunk.masks.Hitbox;
+	import net.flashpunk.masks.Pixelmask;
+	import net.flashpunk.utils.Ease;
+	
+	import volticpunk.components.Delayer;
+	import volticpunk.components.Repeater;
+	import volticpunk.components.Tweener;
 	import volticpunk.entities.VEntity;
+	import volticpunk.util.ImageUtil;
 	
 	public class RotatingPlatform extends VEntity
 	{
+		private var sourceCollisionMask: BitmapData;
+		private var normalImagePos: Point;
+		private var repeater: Repeater;
+		private var angle: Number = 0;
+		
 		public function RotatingPlatform(x:Number=0, y:Number=0)
 		{
-			super(x, y, Image.createRect(32, 16, 0xFFFF0000), new Hitbox(32, 16));
+			super(x, y, A.ColliderImage, null );
+			
+			ImageUtil.centerPivotPoint(getImage());
+			normalImagePos = new Point(getImage().x, getImage().y);
+			
+			type = "rotating_platform";
+			
+			addComponent( repeater =  new Repeater(2, rotate) );
+			addComponent( new Tweener(finishedRotating) );
+			
+			sourceCollisionMask = FP.getBitmap(A.Collider);
+			// Initial image config
+			rotateBy(0);
+		}
+		
+		private function rotateBy(deg: Number): void
+		{
+			var pm: Pixelmask = mask as Pixelmask;
+			var data: BitmapData = sourceCollisionMask;
+			var dim: Number = Math.max(data.width, data.height);
+			var widthDiff: Number = (dim - data.width) / 2;
+			var heightDiff: Number = (dim - data.height) / 2;
+			
+			var matrix: Matrix = new Matrix();
+			matrix.translate(-data.width / 2, -data.height / 2);
+			matrix.rotate(deg * Math.PI / 180);
+			matrix.translate(data.width / 2 + widthDiff, data.height / 2 + heightDiff);
+			var transformed: BitmapData = new BitmapData(dim, dim, true, 0x00000000);
+			
+			transformed.draw(data, matrix);
+			var newPm: Pixelmask = new Pixelmask(transformed);
+			newPm.x = -widthDiff;
+			newPm.y = -heightDiff;
+			mask = newPm;
+		}
+		
+		private function rotate(): void
+		{
+			type = "deadly";
+			getTweener().tween( graphic, {angle: (graphic as Image).angle + 90 }, 0.4, Ease.bounceOut);
+			angle += 90;
+		}
+		
+		override public function update():void
+		{
+			super.update();
+			rotateBy(-angle);
+			
+			if (getTweener().isActive())
+			{
+				getImage().color = 0xFF0000;
+			} else {
+				getImage().color = 0xFFFFFF;
+			}
+			
+			if (repeater.getExpirationPercent() > 0.75)
+			{
+				getImage().x = normalImagePos.x + Math.random() * 2 * repeater.getExpirationPercent();
+				getImage().y = normalImagePos.y + Math.random() * 2 * repeater.getExpirationPercent();
+				
+				if (!getTweener().isActive())
+				{
+					getImage().angle = angle + ((Math.random() * 5) - 2.5) * repeater.getExpirationPercent();
+				}
+				
+				getImage().color = 0xFF8888;
+				
+			} else {
+				if (!getTweener().isActive())
+				{
+					getImage().angle = angle;
+				}
+				
+				getImage().x = normalImagePos.x;
+				getImage().y = normalImagePos.y;
+			}
+		}
+		
+		private function finishedRotating(): void
+		{
+			type = "rotating_platform";
 		}
 	}
 }

@@ -7,6 +7,11 @@ public class A
 {
 
 
+// IMAGE: Collider embedding from collider.png
+[Embed(source = 'collider.png')] public static const Collider:Class;
+public static const ColliderImage:Image = new Image(Collider);
+
+
 // IMAGE: CollisionTiles embedding from collision_tiles.png
 [Embed(source = 'collision_tiles.png')] public static const CollisionTiles:Class;
 public static const CollisionTilesImage:Image = new Image(CollisionTiles);
@@ -101,6 +106,10 @@ public static const SpikeImage:Image = new Image(Spike);
 [Embed(source = 'levels/H2.oel', mimeType = 'application/octet-stream')] public static const H2Map:Class;
 
 
+// LEVEL: I embedding from levels/I.oel
+[Embed(source = 'levels/I.oel', mimeType = 'application/octet-stream')] public static const IMap:Class;
+
+
 // SOUND: DASH embedding from sounds/DASH.mp3
 [Embed(source = 'sounds/DASH.mp3')] public static const DASH:Class;
 public static const DASHSound:Sfx = new Sfx(DASH);
@@ -122,7 +131,7 @@ public static const LANDSound:Sfx = new Sfx(LAND);
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap,H2Map];
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap,H2Map,IMap];
 
 
 // VECTOR: 
@@ -142,7 +151,8 @@ public static const LEVELS:Object = {"A" : AMap,
 "G" : GMap,
 "G2" : G2Map,
 "H" : HMap,
-"H2" : H2Map};
+"H2" : H2Map,
+"I" : IMap};
 public static const SOUNDS:Object = {"DASH" : DASHSound,
 "DIE" : DIESound,
 "JUMP" : JUMPSound,

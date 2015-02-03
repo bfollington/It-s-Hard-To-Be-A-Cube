@@ -217,6 +217,11 @@ package entities
 			
 			if (dead) return;
 			
+			if (collide("deadly", x, y))
+			{
+				kill();
+			}
+			
 			if (collideTypes(C.COLLISION_TYPES, x, y))
 			{
 				kill();

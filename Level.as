@@ -10,6 +10,7 @@ package
 	import entities.EdgeOfScreen;
 	import entities.Player;
 	import entities.Timer;
+	import entities.loadable.RotatingPlatform;
 	
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -152,6 +153,7 @@ package
 			add( new CollisionLayer(map, A.CollisionTiles, map.Collision) );
 			add( new TileLayer(map, getTileset(map.Ground.@tileset), map.Ground, C.LAYER_GROUND) );
 			var e: Entity = add( new Entity(-1, 0, null, new Hitbox(1, 240)));
+			
 			e.type = C.DEFAULT_COLLISION_TYPE;
 			
 			add( new EdgeOfScreen() );
