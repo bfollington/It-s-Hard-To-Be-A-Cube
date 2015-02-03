@@ -8,6 +8,7 @@ FallingPlatform;
 MovingPlatform;
 PlayerStart;
 RoofFaller;
+RotatingPlatform;
 }
 }
 }

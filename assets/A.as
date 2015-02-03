@@ -42,6 +42,26 @@ public static const PlayerImage:Image = new Image(Player);
 public static const SpikeImage:Image = new Image(Spike);
 
 
+// IMAGE: TetrisL embedding from tetris_l.png
+[Embed(source = 'tetris_l.png')] public static const TetrisL:Class;
+public static const TetrisLImage:Image = new Image(TetrisL);
+
+
+// IMAGE: TetrisLAlt embedding from tetris_l_alt.png
+[Embed(source = 'tetris_l_alt.png')] public static const TetrisLAlt:Class;
+public static const TetrisLAltImage:Image = new Image(TetrisLAlt);
+
+
+// IMAGE: TetrisLong embedding from tetris_long.png
+[Embed(source = 'tetris_long.png')] public static const TetrisLong:Class;
+public static const TetrisLongImage:Image = new Image(TetrisLong);
+
+
+// IMAGE: TetrisT embedding from tetris_t.png
+[Embed(source = 'tetris_t.png')] public static const TetrisT:Class;
+public static const TetrisTImage:Image = new Image(TetrisT);
+
+
 // LEVEL: A embedding from levels/A.oel
 [Embed(source = 'levels/A.oel', mimeType = 'application/octet-stream')] public static const AMap:Class;
 

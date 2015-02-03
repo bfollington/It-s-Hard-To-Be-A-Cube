@@ -7,6 +7,7 @@ package entities.loadable
 	import assets.A;
 	
 	import net.flashpunk.FP;
+	import net.flashpunk.World;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.masks.Pixelmask;
 	import net.flashpunk.utils.Ease;
@@ -24,9 +25,21 @@ package entities.loadable
 		private var repeater: Repeater;
 		private var angle: Number = 0;
 		
-		public function RotatingPlatform(x:Number=0, y:Number=0)
+		public static function create(n:XML, world:World): void
 		{
-			super(x, y, A.ColliderImage, null );
+			var e: RotatingPlatform = new RotatingPlatform(n.@x, n.@y, Number(n.@time), n.@type);
+			world.add(e);
+		}
+		
+		public function RotatingPlatform(x:Number=0, y:Number=0, time: Number = 2, typeCode: String = "|__")
+		{
+			super(x, y, null, null );
+			
+			var typeCodes: Array = ["|__", "__|", "_=_", "____"];
+			var images: Array = [A.TetrisL, A.TetrisLAlt, A.TetrisT, A.TetrisLong];
+			var shape: int = typeCodes.indexOf(typeCode);
+			
+			graphic = new Image(images[shape]);
 			
 			ImageUtil.centerPivotPoint(getImage());
 			normalImagePos = new Point(getImage().x, getImage().y);
@@ -36,7 +49,7 @@ package entities.loadable
 			addComponent( repeater =  new Repeater(2, rotate) );
 			addComponent( new Tweener(finishedRotating) );
 			
-			sourceCollisionMask = FP.getBitmap(A.Collider);
+			sourceCollisionMask = FP.getBitmap(images[shape]);
 			// Initial image config
 			rotateBy(0);
 		}

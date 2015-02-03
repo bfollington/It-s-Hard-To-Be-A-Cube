@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <OgmoVersion>1.0</OgmoVersion>
+  <OgmoVersion>2.1.0.6</OgmoVersion>
   <Name>Web Game</Name>
   <BackgroundColor A="255" R="0" G="0" B="0" />
   <GridColor A="255" R="255" G="240" B="90" />
@@ -173,6 +173,31 @@
       </ImageDefinition>
       <ValueDefinitions>
         <ValueDefinition xsi:type="FloatValueDefinition" Name="timer" Default="0.4" Min="0" Max="2" Round="0.01" />
+      </ValueDefinitions>
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="RotatingPlatform" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>32</Width>
+        <Height>32</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Rectangle" ImagePath="" Tiled="false">
+        <RectColor A="255" R="255" G="0" B="0" />
+      </ImageDefinition>
+      <ValueDefinitions>
+        <ValueDefinition xsi:type="EnumValueDefinition" Name="type">
+          <Elements>
+            <string>|__</string>
+            <string>__|</string>
+            <string>_=_</string>
+            <string>____</string>
+          </Elements>
+        </ValueDefinition>
+        <ValueDefinition xsi:type="FloatValueDefinition" Name="time" Default="2" Min="0" Max="100" Round="0.1" />
       </ValueDefinitions>
       <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
     </EntityDefinition>
