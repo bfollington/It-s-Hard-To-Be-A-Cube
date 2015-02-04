@@ -24,7 +24,7 @@ package entities
 		
 		private function makeParticle(): void
 		{
-			room.add( new EdgeOfScreenParticle(x, y + Math.random() * 240) );
+			(room.create(EdgeOfScreenParticle) as EdgeOfScreenParticle).init(x, y + Math.random() * 240);
 		}
 	}
 }

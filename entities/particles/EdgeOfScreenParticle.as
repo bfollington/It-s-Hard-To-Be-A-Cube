@@ -2,6 +2,7 @@ package entities.particles
 {
 	import flash.geom.Point;
 	
+	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.Mask;
 	import net.flashpunk.graphics.Image;
@@ -28,9 +29,32 @@ package entities.particles
 			velocity = new Point(Math.random() * 1 - 0.5, Math.random() * -0.5);
 			spin = Math.random() * 10 - 5;
 			
-			lifespan = addComponent( new LifespanComponent(1, true) ) as LifespanComponent;
+			lifespan = addComponent( new LifespanComponent(1, false, expire) ) as LifespanComponent;
 			
 			layer = C.LAYER_FOREGROUND;
+			init(x, y);
+		}
+		
+		override public function added():void
+		{
+			super.added();
+			
+			lifespan.reset();
+		}
+		
+		private function expire(e: Entity): void
+		{
+			room.recycle(this);
+		}
+		
+		public function init(x, y): void
+		{
+			this.x = x;
+			this.y = y;
+			
+			var img: Image = graphic as Image;
+			img.angle = 0;
+			img.scale = 1;
 		}
 		
 		override public function update():void

@@ -90,7 +90,7 @@ package entities
 			
 			for (var i: int = 0; i < 5; i ++)
 			{
-				V.getRoom().add( new Smoke(x, y + 8) );
+				addSmoke();
 			}
 			
 			A.LANDSound.play();
@@ -133,10 +133,17 @@ package entities
 			
 			jumping = true;
 			move.onGround = false;
-			V.getRoom().add( new Smoke(x, y + 8) );
-			V.getRoom().add( new Smoke(x, y + 8) );
-			V.getRoom().add( new Smoke(x, y + 8) );
+			addSmoke();
+			addSmoke();
+			addSmoke();
 			A.DASHSound.play();
+		}
+		
+		private function addSmoke(): void
+		{
+			var e: Smoke = (room.create(Smoke) as Smoke)
+			e.init(x, y + 8);
+			trace(e);
 		}
 		
 		public function kill(): void
@@ -146,11 +153,11 @@ package entities
 				visible = false;
 				move.freezeMovement = true;
 				
-				V.getRoom().add( new Smoke(x, y + 8) );
-				V.getRoom().add( new Smoke(x, y + 8) );
-				V.getRoom().add( new Smoke(x, y + 8) );
-				V.getRoom().add( new Smoke(x, y + 8) );
-				V.getRoom().add( new Smoke(x, y + 8) );
+				addSmoke();
+				addSmoke();
+				addSmoke();
+				addSmoke();
+				addSmoke();
 				
 				V.getRoom().add( new volticpunk.entities.util.Delayer(1, (V.getRoom() as Level).reset) );
 				dead = true;
@@ -254,7 +261,7 @@ package entities
 			{
 				if (Math.random() < 0.1)
 				{
-					V.getRoom().add( new Smoke(x, y + 8) );
+					addSmoke();
 				}
 			}
 			
