@@ -12,6 +12,9 @@ package
 		public static const LEFT:int = -1;
 		public static const RIGHT:int = 1;
 		
+		public static const LETTERS: Array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+		
+		
         public static const LAYER_BACKGROUND:int = 15;
         public static const LAYER_GROUND:int = 0;
         public static const LAYER_LIGHT:int = -2;

@@ -1,4 +1,4 @@
-package
+package rooms
 {
 	import flash.display.StageDisplayState;
 	import flash.geom.Rectangle;
@@ -29,15 +29,15 @@ package
 	public class Level extends Room
 	{
 		private var tilesetDict: Dictionary;
-		private var levelNumber: int;
+		private var levelCode: String;
 		
 		[Embed(source = '/assets/levels/meebles.oep', mimeType = 'application/octet-stream')] public static const Project:Class;
 		
-		public function Level(levelNumber: int = 0)
+		public function Level(levelCode: String)
 		{
 			super();
 			
-			this.levelNumber = levelNumber;
+			this.levelCode = levelCode;
 			extractTilesetInfo(loadXml(Project));
 		}
 		
@@ -124,12 +124,12 @@ package
 		
 		public function nextLevel(): void
 		{
-			V.changeRoom( new Level(levelNumber + 1) );	
+			V.changeRoom( new Level( C.LETTERS[C.LETTERS.indexOf(levelCode) + 1] ) );	
 		}
 		
 		public function reset(): void
 		{
-			V.changeRoom(new Level(levelNumber));
+			V.changeRoom(new Level( C.LETTERS[C.LETTERS.indexOf(levelCode)]));
 		}
 		
 		override public function begin(): void
@@ -140,17 +140,8 @@ package
 			var map: XML;
 			
 			var count: int = 0;
-			for (var i:String in A.LEVELS)
-			{
-				if (count == this.levelNumber)
-				{
-					map = loadXml(A.LEVELS[i]);
-					trace(i);
-					break;
-				}
-				
-				count++;
-			}
+			
+			map = loadXml(A.LEVELS[levelCode]);
 			
 			levelWidth = map.@width;
 			levelHeight = map.@height;

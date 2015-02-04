@@ -22,6 +22,7 @@ package entities
 	import volticpunk.entities.util.Delayer;
 	import volticpunk.util.ImageUtil;
 	import volticpunk.util.NumberUtil;
+	import rooms.Level;
 	
 	public class Player extends VEntity
 	{

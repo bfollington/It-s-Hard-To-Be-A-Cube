@@ -7,6 +7,9 @@ package
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	
+	import rooms.Level;
+	import rooms.Menu;
+	
 	import volticpunk.V;
 	
 	[SWF(width="640", height="480", backgroundColor="#000000")]
@@ -21,7 +24,7 @@ package
 			
 			FP.screen.scale = 2;
 			
-			FP.world = new Level();
+			FP.world = new Menu();
 			
 			Input.define("Left", Key.LEFT);
 			Input.define("Right", Key.RIGHT);
