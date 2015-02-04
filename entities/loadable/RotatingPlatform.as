@@ -24,6 +24,8 @@ package entities.loadable
 		private var normalImagePos: Point;
 		private var repeater: Repeater;
 		private var angle: Number = 0;
+		private var transformed: BitmapData;
+		private var dim: Number;
 		
 		public static function create(n:XML, world:World): void
 		{
@@ -46,19 +48,28 @@ package entities.loadable
 			
 			type = "rotating_platform";
 			
-			addComponent( repeater =  new Repeater(2, rotate) );
+			addComponent( repeater =  new Repeater(time, rotate) );
 			addComponent( new Tweener(finishedRotating) );
 			
 			sourceCollisionMask = FP.getBitmap(images[shape]);
+			dim = Math.max(sourceCollisionMask.width, sourceCollisionMask.height);
+			transformed = new BitmapData(dim, dim, true, 0x00000000);
+			mask = new Pixelmask(transformed);
+			
 			// Initial image config
 			rotateBy(0);
+		}
+		
+		override public function added():void
+		{
+			super.added();
 		}
 		
 		private function rotateBy(deg: Number): void
 		{
 			var pm: Pixelmask = mask as Pixelmask;
 			var data: BitmapData = sourceCollisionMask;
-			var dim: Number = Math.max(data.width, data.height);
+			
 			var widthDiff: Number = (dim - data.width) / 2;
 			var heightDiff: Number = (dim - data.height) / 2;
 			
@@ -66,13 +77,11 @@ package entities.loadable
 			matrix.translate(-data.width / 2, -data.height / 2);
 			matrix.rotate(deg * Math.PI / 180);
 			matrix.translate(data.width / 2 + widthDiff, data.height / 2 + heightDiff);
-			var transformed: BitmapData = new BitmapData(dim, dim, true, 0x00000000);
 			
 			transformed.draw(data, matrix);
-			var newPm: Pixelmask = new Pixelmask(transformed);
-			newPm.x = -widthDiff;
-			newPm.y = -heightDiff;
-			mask = newPm;
+			(mask as Pixelmask).data = transformed;
+			(mask as Pixelmask).x = -widthDiff;
+			(mask as Pixelmask).y = -heightDiff;
 		}
 		
 		private function rotate(): void

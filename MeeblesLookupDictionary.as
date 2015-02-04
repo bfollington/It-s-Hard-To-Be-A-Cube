@@ -1,9 +1,6 @@
 package
 {
 	import entities.Spike;
-	import entities.loadable.Box;
-	import entities.loadable.ChargeStation;
-	import entities.loadable.Cliff;
 	
 	import volticpunk.worlds.LookupDictionary;
 	

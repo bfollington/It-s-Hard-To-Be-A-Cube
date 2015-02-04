@@ -9,10 +9,12 @@ package
 	
 	import volticpunk.V;
 	
-	[SWF(width="640", height="480", backgroundColor="#000000"]
+	[SWF(width="640", height="480", backgroundColor="#000000")]
 	
 	public class Meebles extends Engine
 	{
+		private static var volume: Number = 1;
+		
 		public function Meebles()
 		{
 			super(C.WIDTH * 2, C.HEIGHT * 2, 60, false);
@@ -32,9 +34,19 @@ package
 			FP.console.toggleKey = Key.TAB;
 		}
 		
+		public static function toggleMute(): void
+		{
+			volume = 1 - volume;
+		}
+		
+		public static function getVolume(): Number
+		{
+			return volume;
+		}
+		
 		public static function getPlayer(): Player
 		{
-			return V.getRoom().getMembersByClass(Player).getMembers()[0];
+			return V.getRoom().getMembersByClass(Player).getMembers()[0] as Player;
 		}
 	}
 }

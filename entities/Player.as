@@ -93,7 +93,7 @@ package entities
 				addSmoke();
 			}
 			
-			A.LANDSound.play();
+			A.LANDSound.play(Meebles.getVolume());
 			
 			if (!getTweener().isActive()) getTweener().tween(getImage(), {scaleY: 1, y: getImage().y - 4}, 0.3, Ease.bounceOut);
 		}
@@ -136,7 +136,7 @@ package entities
 			addSmoke();
 			addSmoke();
 			addSmoke();
-			A.DASHSound.play();
+			A.DASHSound.play(Meebles.getVolume());
 		}
 		
 		private function addSmoke(): void
@@ -161,7 +161,7 @@ package entities
 				
 				V.getRoom().add( new volticpunk.entities.util.Delayer(1, (V.getRoom() as Level).reset) );
 				dead = true;
-				A.DIESound.play();
+				A.DIESound.play(Meebles.getVolume());
 			}
 		}
 		
@@ -294,7 +294,7 @@ package entities
 				if (!hasPressedJump && !collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 5) || ( !jumping && easyJump > 0 ) ))
 				{
 					move.velocity.y = -4;	
-					A.JUMPSound.play();
+					A.JUMPSound.play(Meebles.getVolume());
 					jumping = true;
 				}
 				

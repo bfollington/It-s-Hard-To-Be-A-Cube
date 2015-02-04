@@ -130,6 +130,14 @@ public static const TetrisTImage:Image = new Image(TetrisT);
 [Embed(source = 'levels/I.oel', mimeType = 'application/octet-stream')] public static const IMap:Class;
 
 
+// LEVEL: I2 embedding from levels/I2.oel
+[Embed(source = 'levels/I2.oel', mimeType = 'application/octet-stream')] public static const I2Map:Class;
+
+
+// LEVEL: J embedding from levels/J.oel
+[Embed(source = 'levels/J.oel', mimeType = 'application/octet-stream')] public static const JMap:Class;
+
+
 // SOUND: DASH embedding from sounds/DASH.mp3
 [Embed(source = 'sounds/DASH.mp3')] public static const DASH:Class;
 public static const DASHSound:Sfx = new Sfx(DASH);
@@ -151,7 +159,7 @@ public static const LANDSound:Sfx = new Sfx(LAND);
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap,H2Map,IMap];
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap,H2Map,IMap,I2Map,JMap];
 
 
 // VECTOR: 
@@ -172,7 +180,9 @@ public static const LEVELS:Object = {"A" : AMap,
 "G2" : G2Map,
 "H" : HMap,
 "H2" : H2Map,
-"I" : IMap};
+"I" : IMap,
+"I2" : I2Map,
+"J" : JMap};
 public static const SOUNDS:Object = {"DASH" : DASHSound,
 "DIE" : DIESound,
 "JUMP" : JUMPSound,

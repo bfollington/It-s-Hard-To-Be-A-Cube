@@ -99,6 +99,11 @@ package
 				nextLevel();
 			}
 			
+			if (Input.pressed(Key.M))
+			{
+				Meebles.toggleMute();
+			}
+			
 			if (Input.pressed(Key.R))
 			{
 				reset();

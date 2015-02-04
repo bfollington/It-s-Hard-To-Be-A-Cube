@@ -5,12 +5,7 @@ package entities.loadable
 	import assets.A;
 	
 	import entities.Player;
-	import entities.Spike;
-	
-	import net.flashpunk.Graphic;
-	import net.flashpunk.Mask;
 	import net.flashpunk.World;
-	import net.flashpunk.graphics.Image;
 	import net.flashpunk.masks.Hitbox;
 	
 	import volticpunk.components.Animator;
@@ -23,7 +18,7 @@ package entities.loadable
 		private var target: Point;
 		private var targetIndex: int = 0;
 		private var nodes: Vector.<Point>;
-		private var active: Boolean;
+		private var currentlyActive: Boolean;
 		private var needsPlayer: Boolean;
 		private var lastPos: Point;
 		private var repeat: Boolean;
@@ -84,7 +79,7 @@ package entities.loadable
 			
 			animator.play(name);
 			
-			this.active = active;
+			this.currentlyActive = active;
 			this.needsPlayer = needsPlayer;
 			this.repeat = repeat;
 			this.speed = speed;
@@ -102,7 +97,7 @@ package entities.loadable
 		{
 			super.update();
 			
-			if (!active)
+			if (!currentlyActive)
 			{
 				getTweener().pause();
 			} else {
@@ -123,11 +118,11 @@ package entities.loadable
 				}
 				
 				
-				active = true;
+				currentlyActive = true;
 			} else {
 				if (needsPlayer)
 				{
-					active = false;
+					currentlyActive = false;
 				}
 			}
 			
