@@ -158,12 +158,36 @@ public static const JUMPSound:Sfx = new Sfx(JUMP);
 public static const LANDSound:Sfx = new Sfx(LAND);
 
 
+// SOUND: Track1 embedding from sounds/music/track_1.mp3
+[Embed(source = 'sounds/music/track_1.mp3')] public static const Track1:Class;
+public static const Track1Sound:Sfx = new Sfx(Track1);
+
+
+// SOUND: Track2 embedding from sounds/music/track_2.mp3
+[Embed(source = 'sounds/music/track_2.mp3')] public static const Track2:Class;
+public static const Track2Sound:Sfx = new Sfx(Track2);
+
+
+// SOUND: Track3 embedding from sounds/music/track_3.mp3
+[Embed(source = 'sounds/music/track_3.mp3')] public static const Track3:Class;
+public static const Track3Sound:Sfx = new Sfx(Track3);
+
+
+// SOUND: Track4 embedding from sounds/music/track_4.mp3
+[Embed(source = 'sounds/music/track_4.mp3')] public static const Track4:Class;
+public static const Track4Sound:Sfx = new Sfx(Track4);
+
+
 // VECTOR: 
 public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap,H2Map,IMap,I2Map,JMap];
 
 
 // VECTOR: 
 public static const SoundsList:Vector.<Class> = new <Class>[DASH,DIE,JUMP,LAND];
+
+
+// VECTOR: 
+public static const SoundsMusicList:Vector.<Class> = new <Class>[Track1,Track2,Track3,Track4];
 public static const LEVELS:Object = {"A" : AMap,
 "A2" : A2Map,
 "B" : BMap,
@@ -186,7 +210,11 @@ public static const LEVELS:Object = {"A" : AMap,
 public static const SOUNDS:Object = {"DASH" : DASHSound,
 "DIE" : DIESound,
 "JUMP" : JUMPSound,
-"LAND" : LANDSound};
+"LAND" : LANDSound,
+"Track1" : Track1Sound,
+"Track2" : Track2Sound,
+"Track3" : Track3Sound,
+"Track4" : Track4Sound};
 public static const TILES:Object = {"CollisionTiles" : CollisionTiles,
 "LevelTiles" : LevelTiles};}
 }

@@ -104,6 +104,11 @@ package rooms
 				Meebles.toggleMute();
 			}
 			
+			if (Input.pressed(Key.Q))
+			{
+				V.changeRoom( new Menu() );
+			}
+			
 			if (Input.pressed(Key.R))
 			{
 				reset();
@@ -130,6 +135,11 @@ package rooms
 		public function reset(): void
 		{
 			V.changeRoom(new Level( C.LETTERS[C.LETTERS.indexOf(levelCode)]));
+		}
+		
+		public function getCode(): String
+		{
+			return levelCode;
 		}
 		
 		override public function begin(): void
@@ -169,8 +179,8 @@ package rooms
 			
 			if (!madePlayer)
 			{
-				var e: Entity = add( new Player(128, 64) );
-				V.getRoom().cam.follow(e);
+				var p: Entity = add( new Player(128, 64) );
+				V.getRoom().cam.follow(p);
 			}
 			
 			add( new Timer(320 - 140, 0) );

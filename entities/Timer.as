@@ -39,6 +39,11 @@ package entities
 			text.text = (timer.toFixed(2));
 		}
 		
+		public function getTime(): Number
+		{
+			return timer;
+		}
+		
 		private function pad(n: Number, length: int): String
 		{
 			var s: String = n.toString();

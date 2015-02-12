@@ -78,6 +78,7 @@ package entities.loadable
 			matrix.rotate(deg * Math.PI / 180);
 			matrix.translate(data.width / 2 + widthDiff, data.height / 2 + heightDiff);
 			
+			transformed.fillRect(transformed.rect, 0x00000000);
 			transformed.draw(data, matrix);
 			(mask as Pixelmask).data = transformed;
 			(mask as Pixelmask).x = -widthDiff;

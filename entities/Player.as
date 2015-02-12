@@ -11,8 +11,11 @@ package entities
 	import net.flashpunk.Graphic;
 	import net.flashpunk.Mask;
 	import net.flashpunk.masks.Hitbox;
+	import net.flashpunk.utils.Data;
 	import net.flashpunk.utils.Ease;
 	import net.flashpunk.utils.Input;
+	
+	import rooms.Level;
 	
 	import volticpunk.V;
 	import volticpunk.components.Delayer;
@@ -22,7 +25,6 @@ package entities
 	import volticpunk.entities.util.Delayer;
 	import volticpunk.util.ImageUtil;
 	import volticpunk.util.NumberUtil;
-	import rooms.Level;
 	
 	public class Player extends VEntity
 	{
@@ -50,15 +52,15 @@ package entities
 			
 			ImageUtil.setPivotPoint(getImage(), new Point( getImage().width / 2, getImage().height / 2) );
 			
-			move = new PlatformerMovement(null, null, new Point(2, 5));
+			move = new PlatformerMovement(null, null, new Point(2, 5), false);
 			move.setLandingCallback(landed);
 			
 			addComponent(move, "move");
-			addComponent(new Tweener());
-			var tweener: Tweener = addComponent(new Tweener(), "spin_back_tween") as Tweener;
+			addComponent(new Tweener(null, true));
+			var tweener: Tweener = addComponent(new Tweener(null, true), "spin_back_tween") as Tweener;
 			tweener.setCallback( resetAngle );
 			
-			delayer = addComponent( new volticpunk.components.Delayer(0.6, resetDash, false) ) as volticpunk.components.Delayer;
+			delayer = addComponent( new volticpunk.components.Delayer(42, resetDash, false, true) ) as volticpunk.components.Delayer;
 			delayer.pause();
 			
 			getImage().smooth = false;
@@ -96,7 +98,7 @@ package entities
 			
 			A.LANDSound.play(Meebles.getVolume());
 			
-			if (!getTweener().isActive()) getTweener().tween(getImage(), {scaleY: 1, y: getImage().y - 4}, 0.3, Ease.bounceOut);
+			if (!getTweener().isActive()) getTweener().tween(getImage(), {scaleY: 1, y: getImage().y - 4}, 18, Ease.bounceOut);
 		}
 		
 		private function dash(): void
@@ -278,18 +280,21 @@ package entities
 				move.acceleration.x = 0;
 			}
 			
-			if (Input.pressed("Dash") && canDash && !isDashing())
+			if (y > 0)
 			{
-				dash();
+				if (Input.pressed("Dash") && canDash && !isDashing())
+				{
+					dash();
+				}
 			}
 			
 			if (!Input.check("Left") && !Input.check("Right") && !Input.check("Jump"))
 			{
 				var tweener: Tweener = lookup("spin_back_tween") as Tweener;
-				if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 0.1);
+				if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 6);
 			}
 			
-			if (Input.check("Jump"))
+			if (Input.check("Jump") && y > 0)
 			{	
 				
 				if (!hasPressedJump && !collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 5) || ( !jumping && easyJump > 0 ) ))
@@ -318,6 +323,18 @@ package entities
 			
 			if (x > room.levelWidth)
 			{
+				var saveKey: String = (room as Level).getCode() + "_best_time";
+				var oldTime: Number = Number( Data.readString(saveKey) );
+				var time: Number = Meebles.getTimer().getTime();
+				var timeString: String = time.toFixed(3).toString();
+				
+				if (time < oldTime || oldTime == 0)
+				{
+					Data.writeString(saveKey, timeString);
+					Data.save("meebles");
+					trace("NEW BEST TIME!!!");
+				}
+				
 				(room as Level).nextLevel();
 			}
 		}

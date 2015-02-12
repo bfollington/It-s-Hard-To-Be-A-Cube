@@ -12,7 +12,8 @@ package
 		public static const LEFT:int = -1;
 		public static const RIGHT:int = 1;
 		
-		public static const LETTERS: Array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+		public static const LETTERS: Array = ["A", "A2", "B", "B2", "C", "C2", "D", "D2", "E", "E2", "F", "F2", "G", "G2", "H", "H2", "I", "I2", "J"];
+		public static const LETTERS_REAL: Array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 		
 		
         public static const LAYER_BACKGROUND:int = 15;

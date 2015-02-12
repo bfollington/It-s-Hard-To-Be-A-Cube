@@ -1,9 +1,16 @@
 package rooms
 {
+	import assets.A;
+	
 	import entities.LevelIcon;
 	
+	import net.flashpunk.utils.Data;
 	import net.flashpunk.utils.Input;
 	
+	import volticpunk.V;
+	import volticpunk.util.Choose;
+	import volticpunk.util.Constrain;
+	import volticpunk.util.NumberUtil;
 	import volticpunk.worlds.Room;
 	
 	public class Menu extends Room
@@ -17,23 +24,31 @@ package rooms
 			super(fadeIn);
 			
 			levels = new Vector.<LevelIcon>();
+			levelHeight = 240;
+			levelWidth = 2548;
 		}
 		
 		override public function begin():void
 		{
 			super.begin();
 			
+			Data.load("meebles");
 			disableDarknessOverlay();
 			
 			var e: LevelIcon;
+			var iconWidth: int = 128;
 			
-			for (var i: int = 0; i < 26; i++)
+			for (var i: int = 0; i < C.LETTERS.length; i++)
 			{
-				e = add( new LevelIcon(96 * i, 64, i) ) as LevelIcon;
+				e = add( new LevelIcon( ((320 - iconWidth / 2) / 2) + iconWidth * i, 64, i) ) as LevelIcon;
 				levels.push(e);
+				e.unselect();
 			}
 			
 			selection = levels[0];
+			selection.select();
+
+			Meebles.startMusic();
 		}
 		
 		override public function update():void{
@@ -47,17 +62,19 @@ package rooms
 			if (Input.pressed("Right"))
 			{
 				selection.unselect();
-				selectionIndex++;
+				selectionIndex = Constrain.constrain(selectionIndex + 1, 0, C.LETTERS.length - 1);
 				selection = levels[selectionIndex];
 				selection.select();
+				V.getRoom().cam.follow(selection);
 			}
 			
 			if (Input.pressed("Left"))
 			{
 				selection.unselect();
-				selectionIndex--;
+				selectionIndex = Constrain.constrain(selectionIndex - 1, 0, C.LETTERS.length - 1);
 				selection = levels[selectionIndex];
 				selection.select();
+				V.getRoom().cam.follow(selection);
 			}
 		}
 	}
