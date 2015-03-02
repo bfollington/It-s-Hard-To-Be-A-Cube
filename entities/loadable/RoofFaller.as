@@ -20,7 +20,7 @@ package entities.loadable
 		private var fall: Boolean = false;
 		private var initialY: Number;
 		private var speed: int;
-		private var active: Boolean = true;
+		private var shouldRespond: Boolean = true;
 		
 		public static function create(n:XML, world:World): void
 		{
@@ -46,7 +46,7 @@ package entities.loadable
 		{	
 			var tweener: Tweener = lookup("tweener") as Tweener;
 			tweener.tween(this, {y: initialY}, 0.5);
-			active = false;
+			shouldRespond = false;
 			fall = false;
 		}
 		
@@ -54,7 +54,7 @@ package entities.loadable
 		{
 			super.update();
 			
-			if (active)
+			if (shouldRespond)
 			{
 				
 				if (Meebles.getPlayer().x - 5 < (x + 8) && Meebles.getPlayer().x + 5 > (x + 8) )

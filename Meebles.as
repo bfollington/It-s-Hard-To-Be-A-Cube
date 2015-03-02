@@ -15,6 +15,7 @@ package
 	
 	import rooms.Level;
 	import rooms.Menu;
+	import rooms.Title;
 	
 	import volticpunk.V;
 	import volticpunk.entities.Group;
@@ -33,7 +34,7 @@ package
 			
 			FP.screen.scale = 2;
 			
-			FP.world = new Menu();
+			FP.world = new Title();
 			
 			Input.define("Left", Key.LEFT);
 			Input.define("Right", Key.RIGHT);

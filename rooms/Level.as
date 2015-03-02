@@ -21,6 +21,7 @@ package rooms
 	
 	import volticpunk.V;
 	import volticpunk.util.StringManipulation;
+	import volticpunk.util.XMLUtil;
 	import volticpunk.worlds.CollisionLayer;
 	import volticpunk.worlds.LookupDictionary;
 	import volticpunk.worlds.Room;
@@ -38,15 +39,8 @@ package rooms
 			super();
 			
 			this.levelCode = levelCode;
-			extractTilesetInfo(loadXml(Project));
+			extractTilesetInfo(XMLUtil.loadXml(Project));
 		}
-		
-		private function loadXml(c: Class): XML
-		{
-			var bytes:ByteArray = new c();
-			return new XML(bytes.readUTFBytes(bytes.length));
-		}
-		
 		
 		/**
 		 * Read the project file and build a map of tilset names to file names 
@@ -94,11 +88,6 @@ package rooms
 		{
 			super.update();
 			
-			if (Input.pressed(Key.SHIFT))
-			{
-				nextLevel();
-			}
-			
 			if (Input.pressed(Key.M))
 			{
 				Meebles.toggleMute();
@@ -113,14 +102,8 @@ package rooms
 			{
 				reset();
 			}
-			
-			if (Input.pressed(Key.DIGIT_9))
-			{
-				FP.stage.fullScreenSourceRect = new Rectangle(0, 0, 640, 480);
-				FP.stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-			}
 
-			if (Input.mouseDown)
+			if (Input.mousePressed)
 			{
 				Meebles.getPlayer().x = FP.camera.x + Input.mouseX;
 				Meebles.getPlayer().y = FP.camera.y + Input.mouseY;
@@ -151,12 +134,29 @@ package rooms
 			
 			var count: int = 0;
 			
-			map = loadXml(A.LEVELS[levelCode]);
+			map = XMLUtil.loadXml(A.LEVELS[levelCode]);
 			
 			levelWidth = map.@width;
 			levelHeight = map.@height;
 			
-			add( new CollisionLayer(map, A.CollisionTiles, map.Collision) );
+			var collisionLayer: CollisionLayer = new CollisionLayer(map, A.CollisionTiles, map.Collision);
+			var e: Entity;
+			
+			// Extend the collision map to stop the player getting inside the terrain. 
+			for (var i: int = 0; i < levelWidth / C.GRID; i++)
+			{
+				for (var j: int = 1; j < 10; j++)
+				{
+					if ( collisionLayer.getTilemap().getTile(i, 0) )
+					{
+						e = new Entity( i * C.GRID, -j * C.GRID, null, new Hitbox(C.GRID, C.GRID) );
+						e.type = "level";
+						add( e );
+					}
+				}
+			}
+			
+			add( collisionLayer );
 			add( new TileLayer(map, getTileset(map.Ground.@tileset), map.Ground, C.LAYER_GROUND) );
 			var e: Entity = add( new Entity(-1, 0, null, new Hitbox(1, 240)));
 			

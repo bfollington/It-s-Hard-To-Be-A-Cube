@@ -176,16 +176,16 @@
       </ValueDefinitions>
       <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
     </EntityDefinition>
-    <EntityDefinition Name="RotatingPlatform" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+    <EntityDefinition Name="RotatingPlatform" Limit="-1" ResizableX="true" ResizableY="true" Rotatable="true" RotateIncrement="90">
       <Size>
-        <Width>32</Width>
-        <Height>32</Height>
+        <Width>96</Width>
+        <Height>96</Height>
       </Size>
       <Origin>
-        <X>0</X>
-        <Y>0</Y>
+        <X>48</X>
+        <Y>48</Y>
       </Origin>
-      <ImageDefinition DrawMode="Rectangle" ImagePath="" Tiled="false">
+      <ImageDefinition DrawMode="Image" ImagePath="..\tetris_l.png" Tiled="false">
         <RectColor A="255" R="255" G="0" B="0" />
       </ImageDefinition>
       <ValueDefinitions>
@@ -194,11 +194,44 @@
             <string>|__</string>
             <string>__|</string>
             <string>_=_</string>
-            <string>____</string>
+            <string>Z</string>
+            <string>S</string>
           </Elements>
         </ValueDefinition>
         <ValueDefinition xsi:type="FloatValueDefinition" Name="time" Default="2" Min="0" Max="100" Round="0.1" />
       </ValueDefinitions>
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="RotatingLong" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="true" RotateIncrement="90">
+      <Size>
+        <Width>128</Width>
+        <Height>128</Height>
+      </Size>
+      <Origin>
+        <X>64</X>
+        <Y>64</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Image" ImagePath="..\..\..\tetris_long.png" Tiled="false">
+        <RectColor A="255" R="255" G="255" B="0" />
+      </ImageDefinition>
+      <ValueDefinitions>
+        <ValueDefinition xsi:type="FloatValueDefinition" Name="time" Default="2" Min="0" Max="100" Round="0.1" />
+      </ValueDefinitions>
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="PartialPlatform" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Rectangle" ImagePath="" Tiled="false">
+        <RectColor A="255" R="0" G="128" B="255" />
+      </ImageDefinition>
+      <ValueDefinitions />
       <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
     </EntityDefinition>
   </EntityDefinitions>

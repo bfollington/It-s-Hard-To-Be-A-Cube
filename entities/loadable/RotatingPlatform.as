@@ -29,16 +29,16 @@ package entities.loadable
 		
 		public static function create(n:XML, world:World): void
 		{
-			var e: RotatingPlatform = new RotatingPlatform(n.@x, n.@y, Number(n.@time), n.@type);
+			var e: RotatingPlatform = new RotatingPlatform(n.@x - 48, n.@y - 48, Number(n.@time), n.@type, n.@angle);
 			world.add(e);
 		}
 		
-		public function RotatingPlatform(x:Number=0, y:Number=0, time: Number = 2, typeCode: String = "|__")
+		public function RotatingPlatform(x:Number=0, y:Number=0, time: Number = 2, typeCode: String = "|__", angle: int = 0)
 		{
 			super(x, y, null, null );
 			
-			var typeCodes: Array = ["|__", "__|", "_=_", "____"];
-			var images: Array = [A.TetrisL, A.TetrisLAlt, A.TetrisT, A.TetrisLong];
+			var typeCodes: Array = ["|__", "__|", "_=_", "____", "Z", "S"];
+			var images: Array = [A.TetrisL, A.TetrisLAlt, A.TetrisT, A.TetrisLong, A.TetrisS, A.TetrisZ];
 			var shape: int = typeCodes.indexOf(typeCode);
 			
 			graphic = new Image(images[shape]);
@@ -56,8 +56,9 @@ package entities.loadable
 			transformed = new BitmapData(dim, dim, true, 0x00000000);
 			mask = new Pixelmask(transformed);
 			
+			this.angle = Math.round(angle/90) * 90;
 			// Initial image config
-			rotateBy(0);
+			rotateBy(- this.angle);
 		}
 		
 		override public function added():void
@@ -99,7 +100,7 @@ package entities.loadable
 			
 			if (getTweener().isActive())
 			{
-				getImage().color = 0xFF0000;
+				getImage().color = 0xff71aa;
 			} else {
 				getImage().color = 0xFFFFFF;
 			}
@@ -114,7 +115,7 @@ package entities.loadable
 					getImage().angle = angle + ((Math.random() * 5) - 2.5) * repeater.getExpirationPercent();
 				}
 				
-				getImage().color = 0xFF8888;
+				getImage().color = 0xFFcc99;
 				
 			} else {
 				if (!getTweener().isActive())

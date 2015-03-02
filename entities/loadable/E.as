@@ -6,8 +6,10 @@ public function E()
 {
 FallingPlatform;
 MovingPlatform;
+PartialPlatform;
 PlayerStart;
 RoofFaller;
+RotatingLong;
 RotatingPlatform;
 }
 }

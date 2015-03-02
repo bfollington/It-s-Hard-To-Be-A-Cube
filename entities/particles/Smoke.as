@@ -33,7 +33,7 @@ package entities.particles
 			lifespan.reset();
 		}
 		
-		public function init(x, y): void
+		public function init(x: Number, y: Number): void
 		{
 			this.x = x;
 			this.y = y;

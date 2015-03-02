@@ -17,6 +17,26 @@ public static const ColliderImage:Image = new Image(Collider);
 public static const CollisionTilesImage:Image = new Image(CollisionTiles);
 
 
+// IMAGE: Controls embedding from controls.png
+[Embed(source = 'controls.png')] public static const Controls:Class;
+public static const ControlsImage:Image = new Image(Controls);
+
+
+// IMAGE: Controls0 embedding from controls0.png
+[Embed(source = 'controls0.png')] public static const Controls0:Class;
+public static const Controls0Image:Image = new Image(Controls0);
+
+
+// IMAGE: Controls1 embedding from controls1.png
+[Embed(source = 'controls1.png')] public static const Controls1:Class;
+public static const Controls1Image:Image = new Image(Controls1);
+
+
+// IMAGE: ControlsMuted embedding from controls_muted.png
+[Embed(source = 'controls_muted.png')] public static const ControlsMuted:Class;
+public static const ControlsMutedImage:Image = new Image(ControlsMuted);
+
+
 // IMAGE: FallingPlatform embedding from falling_platform.png
 [Embed(source = 'falling_platform.png')] public static const FallingPlatform:Class;
 public static const FallingPlatformImage:Image = new Image(FallingPlatform);
@@ -57,85 +77,127 @@ public static const TetrisLAltImage:Image = new Image(TetrisLAlt);
 public static const TetrisLongImage:Image = new Image(TetrisLong);
 
 
+// IMAGE: TetrisS embedding from tetris_s.png
+[Embed(source = 'tetris_s.png')] public static const TetrisS:Class;
+public static const TetrisSImage:Image = new Image(TetrisS);
+
+
 // IMAGE: TetrisT embedding from tetris_t.png
 [Embed(source = 'tetris_t.png')] public static const TetrisT:Class;
 public static const TetrisTImage:Image = new Image(TetrisT);
+
+
+// IMAGE: TetrisZ embedding from tetris_z.png
+[Embed(source = 'tetris_z.png')] public static const TetrisZ:Class;
+public static const TetrisZImage:Image = new Image(TetrisZ);
+
+
+// IMAGE: TitleCube embedding from images/title_cube.png
+[Embed(source = 'images/title_cube.png')] public static const TitleCube:Class;
+public static const TitleCubeImage:Image = new Image(TitleCube);
+
+
+// IMAGE: TitleCubeText embedding from images/title_cube_text.png
+[Embed(source = 'images/title_cube_text.png')] public static const TitleCubeText:Class;
+public static const TitleCubeTextImage:Image = new Image(TitleCubeText);
+
+
+// IMAGE: TitleSmallText embedding from images/title_small_text.png
+[Embed(source = 'images/title_small_text.png')] public static const TitleSmallText:Class;
+public static const TitleSmallTextImage:Image = new Image(TitleSmallText);
+
+
+// IMAGE: ZToStart embedding from images/z_to_start.png
+[Embed(source = 'images/z_to_start.png')] public static const ZToStart:Class;
+public static const ZToStartImage:Image = new Image(ZToStart);
 
 
 // LEVEL: A embedding from levels/A.oel
 [Embed(source = 'levels/A.oel', mimeType = 'application/octet-stream')] public static const AMap:Class;
 
 
-// LEVEL: A2 embedding from levels/A2.oel
-[Embed(source = 'levels/A2.oel', mimeType = 'application/octet-stream')] public static const A2Map:Class;
-
-
 // LEVEL: B embedding from levels/B.oel
 [Embed(source = 'levels/B.oel', mimeType = 'application/octet-stream')] public static const BMap:Class;
-
-
-// LEVEL: B2 embedding from levels/B2.oel
-[Embed(source = 'levels/B2.oel', mimeType = 'application/octet-stream')] public static const B2Map:Class;
 
 
 // LEVEL: C embedding from levels/C.oel
 [Embed(source = 'levels/C.oel', mimeType = 'application/octet-stream')] public static const CMap:Class;
 
 
-// LEVEL: C2 embedding from levels/C2.oel
-[Embed(source = 'levels/C2.oel', mimeType = 'application/octet-stream')] public static const C2Map:Class;
-
-
-// LEVEL: D embedding from levels/D.oel
-[Embed(source = 'levels/D.oel', mimeType = 'application/octet-stream')] public static const DMap:Class;
-
-
-// LEVEL: D2 embedding from levels/D2.oel
-[Embed(source = 'levels/D2.oel', mimeType = 'application/octet-stream')] public static const D2Map:Class;
-
-
-// LEVEL: E embedding from levels/E.oel
-[Embed(source = 'levels/E.oel', mimeType = 'application/octet-stream')] public static const EMap:Class;
-
-
-// LEVEL: E2 embedding from levels/E2.oel
-[Embed(source = 'levels/E2.oel', mimeType = 'application/octet-stream')] public static const E2Map:Class;
-
-
 // LEVEL: F embedding from levels/F.oel
 [Embed(source = 'levels/F.oel', mimeType = 'application/octet-stream')] public static const FMap:Class;
-
-
-// LEVEL: F2 embedding from levels/F2.oel
-[Embed(source = 'levels/F2.oel', mimeType = 'application/octet-stream')] public static const F2Map:Class;
 
 
 // LEVEL: G embedding from levels/G.oel
 [Embed(source = 'levels/G.oel', mimeType = 'application/octet-stream')] public static const GMap:Class;
 
 
-// LEVEL: G2 embedding from levels/G2.oel
-[Embed(source = 'levels/G2.oel', mimeType = 'application/octet-stream')] public static const G2Map:Class;
-
-
 // LEVEL: H embedding from levels/H.oel
 [Embed(source = 'levels/H.oel', mimeType = 'application/octet-stream')] public static const HMap:Class;
-
-
-// LEVEL: H2 embedding from levels/H2.oel
-[Embed(source = 'levels/H2.oel', mimeType = 'application/octet-stream')] public static const H2Map:Class;
 
 
 // LEVEL: I embedding from levels/I.oel
 [Embed(source = 'levels/I.oel', mimeType = 'application/octet-stream')] public static const IMap:Class;
 
 
-// LEVEL: I2 embedding from levels/I2.oel
-[Embed(source = 'levels/I2.oel', mimeType = 'application/octet-stream')] public static const I2Map:Class;
+// LEVEL: K embedding from levels/K.oel
+[Embed(source = 'levels/K.oel', mimeType = 'application/octet-stream')] public static const KMap:Class;
 
 
-// LEVEL: J embedding from levels/J.oel
-[Embed(source = 'levels/J.oel', mimeType = 'application/octet-stream')] public static const JMap:Class;
+// LEVEL: L embedding from levels/L.oel
+[Embed(source = 'levels/L.oel', mimeType = 'application/octet-stream')] public static const LMap:Class;
+
+
+// LEVEL: M embedding from levels/M.oel
+[Embed(source = 'levels/M.oel', mimeType = 'application/octet-stream')] public static const MMap:Class;
+
+
+// LEVEL: MenuBG embedding from levels/MenuBG.oel
+[Embed(source = 'levels/MenuBG.oel', mimeType = 'application/octet-stream')] public static const MenuBGMap:Class;
+
+
+// LEVEL: N embedding from levels/N.oel
+[Embed(source = 'levels/N.oel', mimeType = 'application/octet-stream')] public static const NMap:Class;
+
+
+// LEVEL: O embedding from levels/O.oel
+[Embed(source = 'levels/O.oel', mimeType = 'application/octet-stream')] public static const OMap:Class;
+
+
+// LEVEL: P embedding from levels/P.oel
+[Embed(source = 'levels/P.oel', mimeType = 'application/octet-stream')] public static const PMap:Class;
+
+
+// LEVEL: Q embedding from levels/Q.oel
+[Embed(source = 'levels/Q.oel', mimeType = 'application/octet-stream')] public static const QMap:Class;
+
+
+// LEVEL: R embedding from levels/R.oel
+[Embed(source = 'levels/R.oel', mimeType = 'application/octet-stream')] public static const RMap:Class;
+
+
+// LEVEL: S embedding from levels/S.oel
+[Embed(source = 'levels/S.oel', mimeType = 'application/octet-stream')] public static const SMap:Class;
+
+
+// LEVEL: T embedding from levels/T.oel
+[Embed(source = 'levels/T.oel', mimeType = 'application/octet-stream')] public static const TMap:Class;
+
+
+// LEVEL: V embedding from levels/V.oel
+[Embed(source = 'levels/V.oel', mimeType = 'application/octet-stream')] public static const VMap:Class;
+
+
+// LEVEL: W embedding from levels/W.oel
+[Embed(source = 'levels/W.oel', mimeType = 'application/octet-stream')] public static const WMap:Class;
+
+
+// LEVEL: X embedding from levels/X.oel
+[Embed(source = 'levels/X.oel', mimeType = 'application/octet-stream')] public static const XMap:Class;
+
+
+// LEVEL: Y embedding from levels/Y.oel
+[Embed(source = 'levels/Y.oel', mimeType = 'application/octet-stream')] public static const YMap:Class;
 
 
 // SOUND: DASH embedding from sounds/DASH.mp3
@@ -179,7 +241,11 @@ public static const Track4Sound:Sfx = new Sfx(Track4);
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[AMap,A2Map,BMap,B2Map,CMap,C2Map,DMap,D2Map,EMap,E2Map,FMap,F2Map,GMap,G2Map,HMap,H2Map,IMap,I2Map,JMap];
+public static const ImagesList:Vector.<Class> = new <Class>[TitleCube,TitleCubeText,TitleSmallText,ZToStart];
+
+
+// VECTOR: 
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,BMap,CMap,FMap,GMap,HMap,IMap,KMap,LMap,MMap,MenuBGMap,NMap,OMap,PMap,QMap,RMap,SMap,TMap,VMap,WMap,XMap,YMap];
 
 
 // VECTOR: 
@@ -189,24 +255,27 @@ public static const SoundsList:Vector.<Class> = new <Class>[DASH,DIE,JUMP,LAND];
 // VECTOR: 
 public static const SoundsMusicList:Vector.<Class> = new <Class>[Track1,Track2,Track3,Track4];
 public static const LEVELS:Object = {"A" : AMap,
-"A2" : A2Map,
 "B" : BMap,
-"B2" : B2Map,
 "C" : CMap,
-"C2" : C2Map,
-"D" : DMap,
-"D2" : D2Map,
-"E" : EMap,
-"E2" : E2Map,
 "F" : FMap,
-"F2" : F2Map,
 "G" : GMap,
-"G2" : G2Map,
 "H" : HMap,
-"H2" : H2Map,
 "I" : IMap,
-"I2" : I2Map,
-"J" : JMap};
+"K" : KMap,
+"L" : LMap,
+"M" : MMap,
+"MenuBG" : MenuBGMap,
+"N" : NMap,
+"O" : OMap,
+"P" : PMap,
+"Q" : QMap,
+"R" : RMap,
+"S" : SMap,
+"T" : TMap,
+"V" : VMap,
+"W" : WMap,
+"X" : XMap,
+"Y" : YMap};
 public static const SOUNDS:Object = {"DASH" : DASHSound,
 "DIE" : DIESound,
 "JUMP" : JUMPSound,

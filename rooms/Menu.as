@@ -6,12 +6,16 @@ package rooms
 	
 	import net.flashpunk.utils.Data;
 	import net.flashpunk.utils.Input;
+	import net.flashpunk.utils.Key;
 	
 	import volticpunk.V;
+	import volticpunk.entities.VEntity;
 	import volticpunk.util.Choose;
 	import volticpunk.util.Constrain;
 	import volticpunk.util.NumberUtil;
+	import volticpunk.util.XMLUtil;
 	import volticpunk.worlds.Room;
+	import volticpunk.worlds.TileLayer;
 	
 	public class Menu extends Room
 	{
@@ -19,21 +23,36 @@ package rooms
 		private var selection: LevelIcon;
 		private var levels: Vector.<LevelIcon>;
 		
+		private var controls: VEntity;
+		
 		public function Menu(fadeIn:Boolean=true)
 		{
 			super(fadeIn);
 			
 			levels = new Vector.<LevelIcon>();
 			levelHeight = 240;
-			levelWidth = 2548;
+			levelWidth = 2548+128+64;
+			
+			controls = new VEntity(110, 200, A.ControlsImage);
+			A.ControlsImage.scrollX = 0;
+			A.ControlsMutedImage.scrollX = 0;
+			controls.layer = C.LAYER_FOREGROUND;
+			
+			add( controls );
 		}
 		
 		override public function begin():void
 		{
 			super.begin();
 			
-			Data.load("meebles");
 			disableDarknessOverlay();
+			
+			var map: XML = XMLUtil.loadXml(A.MenuBGMap);
+			
+			var tiles: TileLayer = new TileLayer(map, A.LevelTiles, map.Ground, C.LAYER_GROUND);
+			tiles.graphic.scrollX = 0.5;
+			
+			add( tiles );
 			
 			var e: LevelIcon;
 			var iconWidth: int = 128;
@@ -47,12 +66,22 @@ package rooms
 			
 			selection = levels[0];
 			selection.select();
-
-			Meebles.startMusic();
 		}
 		
 		override public function update():void{
 			super.update();
+			
+			if (Meebles.getVolume() == 0)
+			{
+				controls.graphic = A.ControlsMutedImage;
+			} else {
+				controls.graphic = A.ControlsImage;
+			}
+			
+			if (Input.pressed(Key.M))
+			{
+				Meebles.toggleMute();
+			}
 			
 			if (Input.pressed("Jump"))
 			{

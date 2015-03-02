@@ -12,7 +12,7 @@ package entities
 		private var text: Text;
 		private var timer: Number = 0;
 		
-		[Embed(source = '/assets/apple.ttf', embedAsCFF="false", fontFamily = "Apple ][")] private const CONSOLE:Class;
+		[Embed(source = '/assets/apple.ttf', embedAsCFF="false", fontFamily = "Apple ][")] public static const CONSOLE:Class;
 		
 		public function Timer(x:Number=0, y:Number=0)
 		{
