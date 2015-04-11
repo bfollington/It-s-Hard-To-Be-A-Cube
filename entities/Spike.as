@@ -75,7 +75,7 @@ package entities
 		
 		private function toggle(parent: Entity): void
 		{
-			delayer.reset();
+			delayer.reset(false);
 			
 			getTweener().tween(parent, {x: parent.x + movement.x, y: parent.y + movement.y}, 0.5);
 			movement.x = -movement.x;

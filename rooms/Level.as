@@ -20,6 +20,8 @@ package rooms
 	import net.flashpunk.utils.Key;
 	
 	import volticpunk.V;
+	import volticpunk.components.Delayer;
+	import volticpunk.entities.util.Delayer;
 	import volticpunk.util.StringManipulation;
 	import volticpunk.util.XMLUtil;
 	import volticpunk.worlds.CollisionLayer;
@@ -31,6 +33,7 @@ package rooms
 	{
 		private var tilesetDict: Dictionary;
 		private var levelCode: String;
+		private var timer: Timer;
 		
 		[Embed(source = '/assets/levels/meebles.oep', mimeType = 'application/octet-stream')] public static const Project:Class;
 		
@@ -103,11 +106,11 @@ package rooms
 				reset();
 			}
 
-			if (Input.mousePressed)
-			{
-				Meebles.getPlayer().x = FP.camera.x + Input.mouseX;
-				Meebles.getPlayer().y = FP.camera.y + Input.mouseY;
-			}
+//			if (Input.mousePressed)
+//			{
+//				Meebles.getPlayer().x = FP.camera.x + Input.mouseX;
+//				Meebles.getPlayer().y = FP.camera.y + Input.mouseY;
+//			}
 		}
 		
 		public function nextLevel(): void
@@ -123,6 +126,17 @@ package rooms
 		public function getCode(): String
 		{
 			return levelCode;
+		}
+		
+		public function getTimer(): Timer
+		{
+			return timer;
+		}
+		
+		public function startLevel(e: Entity = null): void
+		{
+			Meebles.getPlayer().unpause();
+			timer.start();
 		}
 		
 		override public function begin(): void
@@ -183,7 +197,11 @@ package rooms
 				V.getRoom().cam.follow(p);
 			}
 			
-			add( new Timer(320 - 140, 0) );
+			add( new volticpunk.entities.util.Delayer(0.4, startLevel) );
+			
+			timer = new Timer(320 - 140, 0); 
+			timer.stop();
+			add( timer );
 		}
 	}
 }

@@ -7,6 +7,26 @@ public class A
 {
 
 
+// IMAGE: BlankSmall embedding from blank_small.png
+[Embed(source = 'blank_small.png')] public static const BlankSmall:Class;
+public static const BlankSmallImage:Image = new Image(BlankSmall);
+
+
+// IMAGE: Bronze embedding from bronze.png
+[Embed(source = 'bronze.png')] public static const Bronze:Class;
+public static const BronzeImage:Image = new Image(Bronze);
+
+
+// IMAGE: BronzeSmall embedding from bronze_small.png
+[Embed(source = 'bronze_small.png')] public static const BronzeSmall:Class;
+public static const BronzeSmallImage:Image = new Image(BronzeSmall);
+
+
+// IMAGE: CC embedding from CC.png
+[Embed(source = 'CC.png')] public static const CC:Class;
+public static const CCImage:Image = new Image(CC);
+
+
 // IMAGE: Collider embedding from collider.png
 [Embed(source = 'collider.png')] public static const Collider:Class;
 public static const ColliderImage:Image = new Image(Collider);
@@ -37,9 +57,29 @@ public static const Controls1Image:Image = new Image(Controls1);
 public static const ControlsMutedImage:Image = new Image(ControlsMuted);
 
 
+// IMAGE: CreditsControls embedding from credits_controls.png
+[Embed(source = 'credits_controls.png')] public static const CreditsControls:Class;
+public static const CreditsControlsImage:Image = new Image(CreditsControls);
+
+
+// IMAGE: EndOfLevelControls embedding from end_of_level_controls.png
+[Embed(source = 'end_of_level_controls.png')] public static const EndOfLevelControls:Class;
+public static const EndOfLevelControlsImage:Image = new Image(EndOfLevelControls);
+
+
 // IMAGE: FallingPlatform embedding from falling_platform.png
 [Embed(source = 'falling_platform.png')] public static const FallingPlatform:Class;
 public static const FallingPlatformImage:Image = new Image(FallingPlatform);
+
+
+// IMAGE: Gold embedding from gold.png
+[Embed(source = 'gold.png')] public static const Gold:Class;
+public static const GoldImage:Image = new Image(Gold);
+
+
+// IMAGE: GoldSmall embedding from gold_small.png
+[Embed(source = 'gold_small.png')] public static const GoldSmall:Class;
+public static const GoldSmallImage:Image = new Image(GoldSmall);
 
 
 // IMAGE: LevelTiles embedding from level_tiles.png
@@ -55,6 +95,16 @@ public static const MovingPlatformImage:Image = new Image(MovingPlatform);
 // IMAGE: Player embedding from player.png
 [Embed(source = 'player.png')] public static const Player:Class;
 public static const PlayerImage:Image = new Image(Player);
+
+
+// IMAGE: Silver embedding from silver.png
+[Embed(source = 'silver.png')] public static const Silver:Class;
+public static const SilverImage:Image = new Image(Silver);
+
+
+// IMAGE: SilverSmall embedding from silver_small.png
+[Embed(source = 'silver_small.png')] public static const SilverSmall:Class;
+public static const SilverSmallImage:Image = new Image(SilverSmall);
 
 
 // IMAGE: Spike embedding from spike.png
@@ -92,6 +142,21 @@ public static const TetrisTImage:Image = new Image(TetrisT);
 public static const TetrisZImage:Image = new Image(TetrisZ);
 
 
+// IMAGE: TitleControls embedding from title_controls.png
+[Embed(source = 'title_controls.png')] public static const TitleControls:Class;
+public static const TitleControlsImage:Image = new Image(TitleControls);
+
+
+// IMAGE: White embedding from white.png
+[Embed(source = 'white.png')] public static const White:Class;
+public static const WhiteImage:Image = new Image(White);
+
+
+// IMAGE: WhiteSmall embedding from white_small.png
+[Embed(source = 'white_small.png')] public static const WhiteSmall:Class;
+public static const WhiteSmallImage:Image = new Image(WhiteSmall);
+
+
 // IMAGE: TitleCube embedding from images/title_cube.png
 [Embed(source = 'images/title_cube.png')] public static const TitleCube:Class;
 public static const TitleCubeImage:Image = new Image(TitleCube);
@@ -124,6 +189,14 @@ public static const ZToStartImage:Image = new Image(ZToStart);
 [Embed(source = 'levels/C.oel', mimeType = 'application/octet-stream')] public static const CMap:Class;
 
 
+// LEVEL: D embedding from levels/D.oel
+[Embed(source = 'levels/D.oel', mimeType = 'application/octet-stream')] public static const DMap:Class;
+
+
+// LEVEL: E embedding from levels/E.oel
+[Embed(source = 'levels/E.oel', mimeType = 'application/octet-stream')] public static const EMap:Class;
+
+
 // LEVEL: F embedding from levels/F.oel
 [Embed(source = 'levels/F.oel', mimeType = 'application/octet-stream')] public static const FMap:Class;
 
@@ -138,6 +211,10 @@ public static const ZToStartImage:Image = new Image(ZToStart);
 
 // LEVEL: I embedding from levels/I.oel
 [Embed(source = 'levels/I.oel', mimeType = 'application/octet-stream')] public static const IMap:Class;
+
+
+// LEVEL: J embedding from levels/J.oel
+[Embed(source = 'levels/J.oel', mimeType = 'application/octet-stream')] public static const JMap:Class;
 
 
 // LEVEL: K embedding from levels/K.oel
@@ -184,6 +261,10 @@ public static const ZToStartImage:Image = new Image(ZToStart);
 [Embed(source = 'levels/T.oel', mimeType = 'application/octet-stream')] public static const TMap:Class;
 
 
+// LEVEL: U embedding from levels/U.oel
+[Embed(source = 'levels/U.oel', mimeType = 'application/octet-stream')] public static const UMap:Class;
+
+
 // LEVEL: V embedding from levels/V.oel
 [Embed(source = 'levels/V.oel', mimeType = 'application/octet-stream')] public static const VMap:Class;
 
@@ -198,6 +279,10 @@ public static const ZToStartImage:Image = new Image(ZToStart);
 
 // LEVEL: Y embedding from levels/Y.oel
 [Embed(source = 'levels/Y.oel', mimeType = 'application/octet-stream')] public static const YMap:Class;
+
+
+// LEVEL: Z embedding from levels/Z.oel
+[Embed(source = 'levels/Z.oel', mimeType = 'application/octet-stream')] public static const ZMap:Class;
 
 
 // SOUND: DASH embedding from sounds/DASH.mp3
@@ -245,7 +330,7 @@ public static const ImagesList:Vector.<Class> = new <Class>[TitleCube,TitleCubeT
 
 
 // VECTOR: 
-public static const LevelsList:Vector.<Class> = new <Class>[AMap,BMap,CMap,FMap,GMap,HMap,IMap,KMap,LMap,MMap,MenuBGMap,NMap,OMap,PMap,QMap,RMap,SMap,TMap,VMap,WMap,XMap,YMap];
+public static const LevelsList:Vector.<Class> = new <Class>[AMap,BMap,CMap,DMap,EMap,FMap,GMap,HMap,IMap,JMap,KMap,LMap,MMap,MenuBGMap,NMap,OMap,PMap,QMap,RMap,SMap,TMap,UMap,VMap,WMap,XMap,YMap,ZMap];
 
 
 // VECTOR: 
@@ -257,10 +342,13 @@ public static const SoundsMusicList:Vector.<Class> = new <Class>[Track1,Track2,T
 public static const LEVELS:Object = {"A" : AMap,
 "B" : BMap,
 "C" : CMap,
+"D" : DMap,
+"E" : EMap,
 "F" : FMap,
 "G" : GMap,
 "H" : HMap,
 "I" : IMap,
+"J" : JMap,
 "K" : KMap,
 "L" : LMap,
 "M" : MMap,
@@ -272,10 +360,12 @@ public static const LEVELS:Object = {"A" : AMap,
 "R" : RMap,
 "S" : SMap,
 "T" : TMap,
+"U" : UMap,
 "V" : VMap,
 "W" : WMap,
 "X" : XMap,
-"Y" : YMap};
+"Y" : YMap,
+"Z" : ZMap};
 public static const SOUNDS:Object = {"DASH" : DASHSound,
 "DIE" : DIESound,
 "JUMP" : JUMPSound,

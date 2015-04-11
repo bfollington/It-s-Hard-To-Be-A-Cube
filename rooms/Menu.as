@@ -22,6 +22,7 @@ package rooms
 		private var selectionIndex: int = 0;
 		private var selection: LevelIcon;
 		private var levels: Vector.<LevelIcon>;
+		private var moveRight:Boolean = true;
 		
 		private var controls: VEntity;
 		
@@ -31,9 +32,9 @@ package rooms
 			
 			levels = new Vector.<LevelIcon>();
 			levelHeight = 240;
-			levelWidth = 2548+128+64;
+			levelWidth = 26*192;
 			
-			controls = new VEntity(110, 200, A.ControlsImage);
+			controls = new VEntity(8, 210, A.ControlsImage);
 			A.ControlsImage.scrollX = 0;
 			A.ControlsMutedImage.scrollX = 0;
 			controls.layer = C.LAYER_FOREGROUND;
@@ -59,7 +60,7 @@ package rooms
 			
 			for (var i: int = 0; i < C.LETTERS.length; i++)
 			{
-				e = add( new LevelIcon( ((320 - iconWidth / 2) / 2) + iconWidth * i, 64, i) ) as LevelIcon;
+				e = add( new LevelIcon( ((320 - iconWidth / 2) / 2) + iconWidth * i, 32, i) ) as LevelIcon;
 				levels.push(e);
 				e.unselect();
 			}
@@ -88,17 +89,29 @@ package rooms
 				selection.picked();
 			}
 			
-			if (Input.pressed("Right"))
+			if (Input.pressed("Dash"))
 			{
 				selection.unselect();
-				selectionIndex = Constrain.constrain(selectionIndex + 1, 0, C.LETTERS.length - 1);
+				selectionIndex = Constrain.constrain(selectionIndex + 5*(int(moveRight)*2-1), 0, C.LETTERS.length - 1);
 				selection = levels[selectionIndex];
 				selection.select();
 				V.getRoom().cam.follow(selection);
 			}
 			
+			if (Input.pressed("Right"))
+			{
+				moveRight = true;
+				selection.unselect();
+				selectionIndex = Constrain.constrain(selectionIndex + 1, 0, C.LETTERS.length - 1);
+				selection = levels[selectionIndex];
+				selection.select();
+				V.getRoom().cam.follow(selection);
+				
+			}
+			
 			if (Input.pressed("Left"))
 			{
+				moveRight = false;
 				selection.unselect();
 				selectionIndex = Constrain.constrain(selectionIndex - 1, 0, C.LETTERS.length - 1);
 				selection = levels[selectionIndex];

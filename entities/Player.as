@@ -46,6 +46,8 @@ package entities
 		private var easyJump: Number = 0;
 		private var hasPressedJump: Boolean = false;
 		
+		private var paused: Boolean = true;
+		
 		public function Player(x:Number=0, y:Number=0)
 		{
 			super(x, y, A.PlayerImage, new Hitbox(16, 14, 0, 2) );
@@ -142,11 +144,20 @@ package entities
 			A.DASHSound.play(Meebles.getVolume());
 		}
 		
+		public function pause(): void
+		{
+			paused = true;
+		}
+		
+		public function unpause(): void
+		{
+			paused = false;
+		}
+		
 		private function addSmoke(): void
 		{
 			var e: Smoke = (room.create(Smoke) as Smoke)
 			e.init(x, y + 8);
-			trace(e);
 		}
 		
 		public function kill(): void
@@ -227,93 +238,96 @@ package entities
 			
 			if (dead) return;
 			
-			if (collide("deadly", x, y))
+			if (!paused)
 			{
-				kill();
-			}
-			
-			if (collideTypes(C.COLLISION_TYPES, x, y))
-			{
-				kill();
-			}
-			
-			if (isDashing())
-			{
-				dashing();
-			}
-			
-			if (!isDashing() && dashedLastFrame)
-			{
-				dashedLastFrame = false;
-				jumping = false;
-				move.velocity.x = 0;
-				
-				if (!dashedUpLastFrame)
+				if (collide("deadly", x, y))
 				{
-					move.velocity.y = 0;
+					kill();
+				}
+				
+				if (collideTypes(C.COLLISION_TYPES, x, y))
+				{
+					kill();
+				}
+				
+				if (isDashing())
+				{
+					dashing();
+				}
+				
+				if (!isDashing() && dashedLastFrame)
+				{
+					dashedLastFrame = false;
+					jumping = false;
+					move.velocity.x = 0;
+					
+					if (!dashedUpLastFrame)
+					{
+						move.velocity.y = 0;
+					} else {
+						move.velocity.y = -2;
+						dashedUpLastFrame = false;
+					}
+					
+					// move.resetFallDistance();
+				}
+				
+				getImage().angle -= move.velocity.x * 9;
+				if (move.velocity.x != 0 && move.onGround)
+				{
+					if (Math.random() < 0.1)
+					{
+						addSmoke();
+					}
+				}
+				
+				if (Input.check("Left"))
+				{
+					move.acceleration.x = -0.5;	
+					direction = C.LEFT;
+				} else if (Input.check("Right"))
+				{
+					move.acceleration.x = 0.5;	
+					direction = C.RIGHT;
 				} else {
-					move.velocity.y = -2;
-					dashedUpLastFrame = false;
+					move.acceleration.x = 0;
 				}
 				
-				// move.resetFallDistance();
-			}
-			
-			getImage().angle -= move.velocity.x * 9;
-			if (move.velocity.x != 0 && move.onGround)
-			{
-				if (Math.random() < 0.1)
+				if (y > 0)
 				{
-					addSmoke();
-				}
-			}
-			
-			if (Input.check("Left"))
-			{
-				move.acceleration.x = -0.5;	
-				direction = C.LEFT;
-			} else if (Input.check("Right"))
-			{
-				move.acceleration.x = 0.5;	
-				direction = C.RIGHT;
-			} else {
-				move.acceleration.x = 0;
-			}
-			
-			if (y > 0)
-			{
-				if (Input.pressed("Dash") && canDash && !isDashing())
-				{
-					dash();
-				}
-			}
-			
-			if (!Input.check("Left") && !Input.check("Right") && !Input.check("Jump"))
-			{
-				var tweener: Tweener = lookup("spin_back_tween") as Tweener;
-				if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 6);
-			}
-			
-			if (Input.check("Jump") && y > 0)
-			{	
-				
-				if (!hasPressedJump && !collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 5) || ( !jumping && easyJump > 0 ) ))
-				{
-					move.velocity.y = -4;	
-					A.JUMPSound.play(Meebles.getVolume());
-					jumping = true;
+					if (Input.pressed("Dash") && canDash && !isDashing())
+					{
+						dash();
+					}
 				}
 				
-				hasPressedJump = true;
-			} else {
-				hasPressedJump = false;
-			}
-			
-			if (move.onGround)
-			{
-				easyJump = 0.08;
-			} else {
-				easyJump -= FP.elapsed;
+				if (!Input.check("Left") && !Input.check("Right") && !Input.check("Jump"))
+				{
+					var tweener: Tweener = lookup("spin_back_tween") as Tweener;
+					if (!tweener.isActive()) tweener.tween(getImage(), {angle: getImage().angle - getImage().angle % 90}, 6);
+				}
+				
+				if (Input.check("Jump") && y > 0)
+				{	
+					
+					if (!hasPressedJump && !collideTypes(C.COLLISION_TYPES, x, y - 3) && ( collideTypes(C.COLLISION_TYPES, x, y + 5) || ( !jumping && easyJump > 0 ) ))
+					{
+						move.velocity.y = -4;	
+						A.JUMPSound.play(Meebles.getVolume());
+						jumping = true;
+					}
+					
+					hasPressedJump = true;
+				} else {
+					hasPressedJump = false;
+				}
+				
+				if (move.onGround)
+				{
+					easyJump = 0.08;
+				} else {
+					easyJump -= FP.elapsed;
+				}
 			}
 			
 			if (y > room.levelHeight - 16)
@@ -324,18 +338,23 @@ package entities
 			if (x > room.levelWidth)
 			{
 				var saveKey: String = (room as Level).getCode() + "_best_time";
-				var oldTime: Number = Number( Data.readString(saveKey) );
+				var oldTime: Number = Number( Data.readString(saveKey, "0") );
 				var time: Number = Meebles.getTimer().getTime();
-				var timeString: String = time.toFixed(3).toString();
+				var timeString: String = time.toFixed(2).toString();
+				var newBestTime: Boolean = false;
 				
 				if (time < oldTime || oldTime == 0)
 				{
 					Data.writeString(saveKey, timeString);
 					Data.save("meebles");
 					trace("NEW BEST TIME!!!");
+					newBestTime = true;
 				}
 				
-				(room as Level).nextLevel();
+				V.getRoom().add( new EndOfLevelPopup(116, 80, newBestTime, oldTime, time) );
+				getPlatformMovement().freezeMovement = true;
+				(room as Level).getTimer().stop();
+				dead = true;
 			}
 		}
 	}

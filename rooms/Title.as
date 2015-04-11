@@ -1,7 +1,12 @@
 package rooms
 {
+	import flash.events.Event;
+	
 	import assets.A;
 	
+	import entities.MusicAttribution;
+	
+	import net.flashpunk.FP;
 	import net.flashpunk.utils.Data;
 	import net.flashpunk.utils.Ease;
 	import net.flashpunk.utils.Input;
@@ -14,6 +19,7 @@ package rooms
 	import volticpunk.worlds.Room;
 	import volticpunk.worlds.TileLayer;
 	
+	
 	public class Title extends Room
 	{
 		
@@ -22,6 +28,14 @@ package rooms
 		private var title: VEntity;
 		
 		private var pressZ: VEntity;
+		private var pressX: VEntity;
+		
+		private var ads: FGLAds;
+		
+		private function showStartupAd(e:Event):void
+		{
+			ads.showAdPopup();
+		}
 		
 		public function Title(fadeIn:Boolean=true)
 		{
@@ -47,6 +61,10 @@ package rooms
 			A.ZToStartImage.centerOrigin();
 			add(pressZ);
 			
+			pressX = new VEntity(8, 224, A.TitleControlsImage );
+			add( pressX );
+			
+			pressX.layer = C.LAYER_FOREGROUND;
 			pressZ.layer = C.LAYER_FOREGROUND;
 		}
 		
@@ -67,6 +85,11 @@ package rooms
 		override public function begin():void
 		{
 			super.begin();
+			
+			ads = new FGLAds(FP.stage, "FGL-20030238");
+			
+			//When the API is ready, show the ad!
+			ads.addEventListener(FGLAds.EVT_API_READY, showStartupAd);
 			
 			Data.load("meebles");
 			disableDarknessOverlay();
@@ -91,12 +114,34 @@ package rooms
 			fadeIn();
 		}
 		
+		private function testSiteLock():Boolean
+		{
+			var siteLock:RegExp = /^(http|https):\/\/([-a-zA-Z0-9\.])+\.(flashgamelicense)\.com(\/|$)/;
+			return ( siteLock.test ( FP.stage.loaderInfo.url ));
+		}
+		
 		override public function update():void{
 			super.update();
+			
+//			if (Input.check(Key.Y) && Input.check(Key.SHIFT))
+//			{
+//				Data.load("");
+//				Data.save("meebles");
+//			}
+			
+//			if (!testSiteLock())
+//			{
+//				V.changeRoom( new Blank() );
+//			}
 			
 			if (Input.pressed("Jump"))
 			{
 				V.changeRoom( new Menu() );
+			}
+			
+			if (Input.pressed("Dash"))
+			{
+				V.changeRoom( new Credits() );
 			}
 			
 			if (Input.pressed(Key.M))

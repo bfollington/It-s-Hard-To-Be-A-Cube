@@ -12,6 +12,8 @@ package entities
 		private var text: Text;
 		private var timer: Number = 0;
 		
+		private var running: Boolean = true;
+		
 		[Embed(source = '/assets/apple.ttf', embedAsCFF="false", fontFamily = "Apple ][")] public static const CONSOLE:Class;
 		
 		public function Timer(x:Number=0, y:Number=0)
@@ -24,11 +26,21 @@ package entities
 			text.scrollX = text.scrollY = 0;
 		}
 		
+		public function start(): void
+		{
+			running = true;
+		}
+		
+		public function stop(): void
+		{
+			running = false;
+		}
+		
 		override public function update():void
 		{
 			super.update();
 			
-			timer += FP.elapsed;
+			if (running) timer += FP.elapsed;
 			
 			var mins: int = Math.floor(timer / 60);
 			var secs: int = Math.floor(timer % 60);

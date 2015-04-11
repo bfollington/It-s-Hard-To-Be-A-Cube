@@ -1,6 +1,5 @@
-package
+package 
 {	
-	import flash.sampler.getMemberNames;
 	
 	import assets.A;
 	
@@ -21,8 +20,7 @@ package
 	import volticpunk.entities.Group;
 	import volticpunk.util.Choose;
 	
-	[SWF(width="640", height="480", backgroundColor="#000000")]
-	
+	[SWF(width = 640, height = 480, frameRate = 60, backgroundColor = "#000000")]
 	public class Meebles extends Engine
 	{
 		private static var volume: Number = 1;
@@ -30,7 +28,7 @@ package
 		
 		public function Meebles()
 		{
-			super(C.WIDTH * 2, C.HEIGHT * 2, 60, false);
+			super(C.WIDTH, C.HEIGHT, 60, false);
 			
 			FP.screen.scale = 2;
 			
@@ -43,8 +41,8 @@ package
 			Input.define("Jump", Key.Z);
 			Input.define("Dash", Key.X);
 			
-			FP.console.enable();
-			FP.console.toggleKey = Key.TAB;
+			//FP.console.enable();
+			//FP.console.toggleKey = Key.TAB;
 		}
 		
 		public static function toggleMute(): void
