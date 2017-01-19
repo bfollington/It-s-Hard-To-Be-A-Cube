@@ -86,10 +86,10 @@ package rooms
 		{
 			super.begin();
 			
-			ads = new FGLAds(FP.stage, "FGL-20030238");
+			// ads = new FGLAds(FP.stage, "FGL-20030238");
 			
 			//When the API is ready, show the ad!
-			ads.addEventListener(FGLAds.EVT_API_READY, showStartupAd);
+			// ads.addEventListener(FGLAds.EVT_API_READY, showStartupAd);
 			
 			Data.load("meebles");
 			disableDarknessOverlay();

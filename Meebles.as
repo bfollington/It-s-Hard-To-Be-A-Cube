@@ -1,6 +1,10 @@
 package 
 {	
 	
+	import flash.display.NativeMenu;
+	import flash.display.StageDisplayState;
+	import flash.geom.Rectangle;
+	
 	import assets.A;
 	
 	import entities.Player;
